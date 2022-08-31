@@ -155,6 +155,84 @@ body {
   border-radius: 5px;
 }
 
+/*inicio_pagina_2*/
+.quizz-page{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background: #FAFAFA;
+}
+
+.container-quizz {
+  width: 100%;
+  height: 227px;  
+  position: relative;
+}
+
+.container-quizz img {
+  width: 100%;
+  height: 180px;
+  filter: brightness(60%);
+  margin-top: 69px;  
+}
+
+.container-quizz span {  
+  font-weight: 400;
+  font-size: 39px;
+  line-height: 45.7px;
+  
+  top: 140px;
+  left: 10%;
+  right: 10%;
+  
+  text-align: center;
+  position: absolute;
+  color: #FFFFFF;
+}
+
+.container-question {
+  width: 759px;
+  height: 676px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin-top: 42px;
+  background: #FFFFFF;
+}
+
+.question-title {
+  width: 688px;
+  height: 138px;
+  margin-top: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 28px;
+  background: #434CA0;
+}
+
+.question-title h1{
+  font-weight: 700;
+  font-size: 23px;
+  line-height: 26.95px;
+  text-align: center;
+
+  color: #FFFFFF;
+}
+
+.back-home {
+  font-weight: 400;  
+  font-size: 21px;
+
+  border: none;
+  background: #FAFAFA;
+  color: #818181;
+}
+/*termino_pagina_2*/
+
 .hidden {
   /*deixar sempre abaixo*/
   display: none;

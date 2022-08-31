@@ -46,3 +46,8 @@ function loadList() {
   quizzCreator.classList.add("hidden");
   quizzPage.classList.add("hidden");
 }
+
+function returnHomePage() {
+  quizzList.classList.remove("hidden");
+  quizzPage.classList.add("hidden");
+}
