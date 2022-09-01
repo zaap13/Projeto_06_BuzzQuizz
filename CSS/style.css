@@ -167,14 +167,14 @@ body {
   position: relative;
 }
 
-.container-quizz img {
+.title-quizz img {
   width: 100%;
   height: 180px;
   filter: brightness(60%);
   margin-top: 69px;  
 }
 
-.container-quizz span {  
+.title-quizz span {  
   font-weight: 400;
   font-size: 39px;
   line-height: 45.7px;

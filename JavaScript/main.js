@@ -33,6 +33,7 @@ function getQuizzes() {
 function loadQuizz(key) {
   quizzList.classList.add("hidden");
   quizzPage.classList.remove("hidden");
+  loadNewPage();
   console.log(key);
 }
 
@@ -46,6 +47,19 @@ function loadList() {
   quizzCreator.classList.add("hidden");
   quizzPage.classList.add("hidden");
 }
+
+function loadNewPage() {
+  const ul = document.querySelector(".container-quizz");
+  ul.innerHTML = "";
+
+  quizzes.forEach((titlequizz) => {
+      ul.innerHTML = `<li class="title-quizz" onclick="loadQuizz(${titlequizz.id})">
+      <img src="${titlequizz.image}" alt="Imagem de fundo">
+      <span>${titlequizz.title}</span>
+  </li>
+          `;
+    });
+  }
 
 function returnHomePage(){
   window.location.reload();
