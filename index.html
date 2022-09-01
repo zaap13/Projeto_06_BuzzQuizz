@@ -11,22 +11,18 @@
 </head>
 <body>
     <header class="header">
-        <h1 onclick="loadList()">BuzzQuizz</h1>
+        <h1 onclick="loadPage('quizz-list')">BuzzQuizz</h1>
     </header>
 
     <main class="main">
         <div class="quizz-list">
             <div class="create-first-quizz">
                 <p class="create-first-quizz-msg">Você não criou nenhum quizz ainda :(</p>
-                <button class="create-first-quizz-button" onclick="loadCreateQuizz()">Criar Quizz</button>
+                <button class="create-first-quizz-button" onclick="loadPage('quizz-creator')">Criar Quizz</button>
             </div>
             <div class="all-quizzes">
                 <p class="all-quizzes-title">Todos os Quizzes</p>
                 <ul class="all-quizzes-list">
-                    <li class="quizz-box" onclick="loadQuizz(500)">
-                        <img class="quizz-img" src="https://blog.portalpos.com.br/app/uploads/2021/08/cores-768x511.jpg" alt="Imagem do quizz">
-                        <p class="quizz-title">Título do quizz</p>
-                    </li>
 
                 </ul>
             </div>
