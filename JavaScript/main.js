@@ -2,13 +2,24 @@ const urlQuizzes = "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes";
 let quizzes = [];
 let quizz = [];
 
-quizzList = document.querySelector(".quizz-list");
-quizzPage = document.querySelector(".quizz-page");
-quizzCreator = document.querySelector(".quizz-creator");
-
 window.onload = () => {
   getQuizzes();
+
+  let local = localStorage;
+  if (local.length !== 0) {
+    loadUserQuizzes();
+  }
 };
+
+function loadUserQuizzes() {
+  userQuizz = document.querySelector(".user-quizzes");
+  firstQuizz = document.querySelector(".create-first-quizz");
+
+  userQuizz.classList.remove("hidden");
+  firstQuizz.classList.add("hidden");
+
+  // Preencher UL com dados de localStorage
+}
 
 function loadQuizzes() {
   const ul = document.querySelector(".all-quizzes-list");
@@ -54,8 +65,10 @@ function loadPage(page) {
 }
 
 function loadQuizz(key) {
+
   const quizzTitle = document.querySelector(".container-quizz span");
   const quizzImage = document.querySelector(".container-quizz img");
+
   const promisse = axios.get(`${urlQuizzes}/${key}`);
   
   promisse.then((result) => {

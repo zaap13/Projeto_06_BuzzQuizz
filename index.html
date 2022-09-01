@@ -22,6 +22,20 @@
                 <p class="create-first-quizz-msg">Você não criou nenhum quizz ainda :(</p>
                 <button class="create-first-quizz-button" onclick="loadPage('quizz-creator')">Criar Quizz</button>
             </div>
+            <div class="user-quizzes hidden">
+                <div class="user-quizzes-title-box">
+                    <p class="user-quizzes-title">Seus Quizzes</p>
+                    <ion-icon class="user-quizzes-buttom" onclick="loadPage('quizz-creator')" name="add-circle-sharp"></ion-icon>
+                </div>
+                <ul class="user-quizzes-list">
+                    <!--Test Area-->
+                    <li class="quizz-box" onclick="loadPage(10535)">
+                        <img class="quizz-img" src="https://img.olhardigital.com.br/wp-content/uploads/2018/09/20180903133856-860x450.jpg" alt="Imagem do quizz">
+                        <p class="quizz-title">Titulo do quizz</p>
+                    </li>
+                    <!--Test Area-->
+                </ul>
+            </div>
             <div class="all-quizzes">
                 <p class="all-quizzes-title">Todos os Quizzes</p>
                 <ul class="all-quizzes-list">
