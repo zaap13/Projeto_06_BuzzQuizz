@@ -309,9 +309,7 @@ body {
   background: #FAFAFA;
 }
 
-button:hover {
-  cursor: pointer;
-}
+
 /*termino_pagina_2*/
 
 /* começo_pagina_3 */
@@ -338,7 +336,6 @@ button:hover {
   font-weight: 400;
   font-size: 21px;
 
-  cursor: pointer;
 }
 .container-creator {
   width: 100%;
@@ -430,4 +427,7 @@ button:hover {
 .hidden {
   /*deixar sempre abaixo*/
   display: none;
+}
+button:hover {
+  cursor: pointer;
 }
