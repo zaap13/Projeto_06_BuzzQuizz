@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,6 +10,7 @@
 
     <title>Buzz Quizz</title>
 </head>
+
 <body>
     <header class="header">
         <h1 onclick="loadPage('quizz-list')">BuzzQuizz</h1>
@@ -20,6 +22,20 @@
                 <p class="create-first-quizz-msg">Você não criou nenhum quizz ainda :(</p>
                 <button class="create-first-quizz-button" onclick="loadPage('quizz-creator')">Criar Quizz</button>
             </div>
+            <div class="user-quizzes hidden">
+                <div class="user-quizzes-title-box">
+                    <p class="user-quizzes-title">Seus Quizzes</p>
+                    <ion-icon class="user-quizzes-buttom" onclick="loadPage('quizz-creator')" name="add-circle-sharp"></ion-icon>
+                </div>
+                <ul class="user-quizzes-list">
+                    <!--Test Area-->
+                    <li class="quizz-box" onclick="loadPage(10535)">
+                        <img class="quizz-img" src="https://img.olhardigital.com.br/wp-content/uploads/2018/09/20180903133856-860x450.jpg" alt="Imagem do quizz">
+                        <p class="quizz-title">Titulo do quizz</p>
+                    </li>
+                    <!--Test Area-->
+                </ul>
+            </div>
             <div class="all-quizzes">
                 <p class="all-quizzes-title">Todos os Quizzes</p>
                 <ul class="all-quizzes-list">
@@ -29,12 +45,10 @@
         </div>
         <!--inicio_pagina_2-->
         <div class="quizz-page hidden">
-            <ul class="container-quizz">
-                <li class="title-quizz">
-                    <img src="https://blog.portalpos.com.br/app/uploads/2021/08/cores-768x511.jpg" alt="imagem de fundo">
-                    <span>titulo do quizz</span>
-                </li>
-            </ul>
+            <div class="container-quizz">
+                <img>
+                <span></span>
+            </div>
 
             <div class="container-question">
                 <div class="question-title">
@@ -42,26 +56,29 @@
                 </div>
                 <ul class="container-answer">
                     <li class="answer">
-                        <img src="https://blog.portalpos.com.br/app/uploads/2021/08/cores-768x511.jpg" alt="imagem de fundo">
+                        <img src="https://blog.portalpos.com.br/app/uploads/2021/08/cores-768x511.jpg"
+                            alt="imagem de fundo">
                         <h2>Resposta</h2>
                     </li>
                     <li class="answer">
-                        <img src="https://blog.portalpos.com.br/app/uploads/2021/08/cores-768x511.jpg" alt="imagem de fundo">
+                        <img src="https://blog.portalpos.com.br/app/uploads/2021/08/cores-768x511.jpg"
+                            alt="imagem de fundo">
                         <h2>Resposta</h2>
                     </li>
                     <li class="answer">
-                        <img src="https://blog.portalpos.com.br/app/uploads/2021/08/cores-768x511.jpg" alt="imagem de fundo">
+                        <img src="https://blog.portalpos.com.br/app/uploads/2021/08/cores-768x511.jpg"
+                            alt="imagem de fundo">
                         <h2>Resposta</h2>
                     </li>
                     <li class="answer">
-                        <img src="https://blog.portalpos.com.br/app/uploads/2021/08/cores-768x511.jpg" alt="imagem de fundo">
+                        <img src="https://blog.portalpos.com.br/app/uploads/2021/08/cores-768x511.jpg"
+                            alt="imagem de fundo">
                         <h2>Resposta</h2>
                     </li>
-                    <button onclick="loadList()" class="back-home">
-                        Voltar pra home
-                    </button>
-                </div>
+                </ul>
             </div>
+            <button class="restart" onclick="reloadQuizz()">Reiniciar Quizz</button>
+            <button onclick="loadPage('quizz-list')" class="back-home">Voltar pra home</button>
         </div>
 
         <!--fim_pagina_2-->
@@ -184,10 +201,10 @@
 
     </main>
 
-    
     <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="JavaScript/main.js"></script>
-    
+
 </body>
+
 </html>
