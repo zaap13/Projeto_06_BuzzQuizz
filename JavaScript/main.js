@@ -54,15 +54,19 @@ function loadPage(page) {
 }
 
 function loadQuizz(key) {
-
-
+  const quizzTitle = document.querySelector(".container-quizz span");
+  const quizzImage = document.querySelector(".container-quizz img");
   const promisse = axios.get(`${urlQuizzes}/${key}`);
+  
   promisse.then((result) => {
     quizz = result.data;
 
+    quizzTitle.innerHTML = quizz.title;
+    quizzImage.src = quizz.image;
     console.log(quizz);
-    //criar a pag...
   });
+}
 
-  console.log(key);
+function reloadQuizz(){
+  window.scrollTo({top: 0, behavior: "smooth"});
 }
