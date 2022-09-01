@@ -253,6 +253,74 @@ body {
 }
 /*termino_pagina_2*/
 
+/* começo_pagina_3 */
+.quizz-creator{
+  margin: 69px 0 0 0;
+}
+.quizz-creator h1{
+  margin: 0 0 34px 0;
+  font-size: 23px;
+  font-weight: 700;
+  color: #000000;
+}
+.quizz-creator button{
+  width: 354px;
+  height: 54px;
+  margin: 70px 0 0 0;
+  background: #EC362D;
+  border-radius: 15px;
+  border-style:ridge;
+  border: 0px;
+
+  color: #fff5f4;
+  font-weight: 400;
+  font-size: 21px;
+
+  cursor: pointer;
+}
+.container-creator{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+}
+.start{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 600px;
+
+}
+.input-start{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 270px;
+  background: #FFFFFF;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+
+}
+.input-start input{
+  margin-bottom: 9px;
+  width: 90%;
+  height: 46px;
+  border: 1px solid #D1D1D1;
+  border-radius: 5px;
+  font-size: 19px;
+  font-weight: 400;
+}
+::-webkit-input-placeholder{
+  font-style: italic;
+  font-weight: 400;
+  font-size: 19px;
+  color: #BABABA;
+}
+
+
+/* fim_pagina_3 */
 .hidden {
   /*deixar sempre abaixo*/
   display: none;
