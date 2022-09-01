@@ -1,5 +1,6 @@
 const urlQuizzes = "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes";
 let quizzes = [];
+let quizz = [];
 
 quizzList = document.querySelector(".quizz-list");
 quizzPage = document.querySelector(".quizz-page");
@@ -30,9 +31,27 @@ function getQuizzes() {
   });
 }
 
+
+
 function loadQuizz(key) {
   quizzList.classList.add("hidden");
   quizzPage.classList.remove("hidden");
+  
+  const promisse = axios.get(`${urlQuizzes}/${key}`);
+  promisse.then((result) => {
+
+    quizz = result.data;
+
+    console.log(quizz);
+//criar a pag...
+
+
+    
+  })
+  
+  
+  
+  
   loadNewPage();
   console.log(key);
 }
