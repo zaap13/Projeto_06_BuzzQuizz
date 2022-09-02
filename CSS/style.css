@@ -262,7 +262,7 @@ body {
   color: #ffffff;
 }
 
-.container-answer {
+.style-answer {
   width: 688px;
   height: 500px;
   flex-wrap: wrap;
@@ -272,8 +272,13 @@ body {
   align-items: center;
 }
 
+.answer {
+  width: 330px;
+  cursor: pointer;
+}
+
 .answer img {
-  width: 329px;
+  width: 330px;
   height: 175px;
   margin-bottom: 10px;
 }
@@ -300,16 +305,17 @@ body {
   margin-bottom: 18px;
 }
 
-.back-home {
-  font-weight: 400;
-  font-size: 21px;
-
-  border: none;
-  color: #818181;
-  background: #FAFAFA;
+.green{
+  color: #009C22;
 }
 
+.red{
+  color: #FF4B4B;
+}
 
+.opacity{
+  opacity:30%;
+}
 /*termino_pagina_2*/
 
 /* começo_pagina_3 */
@@ -422,6 +428,7 @@ body {
   font-size: 23px;
   color: #FFFFFF;
 }
+
 .back-button{
   width: 354px;
   height: 54px;
