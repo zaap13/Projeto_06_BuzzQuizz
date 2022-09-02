@@ -4,8 +4,6 @@ let quizz = [];
 let levels = [];
 let questions = [];
 let answers = [];
-let putAnswer = [];
-let headerQuestion = [];
 
 window.onload = () => {
   getQuizzes();
@@ -72,8 +70,7 @@ function loadPage(page) {
 function loadQuizz(key) {
   const quizzTitle = document.querySelector(".container-quizz span");
   const quizzImage = document.querySelector(".container-quizz img");
-  const titleQuestion = document.querySelector(".title-quizz");
-  /*  const spaceAnswer = document.querySelector(".container-answer");*/
+  const titleQuestion = document.querySelector(".container-head");
   const promisse = axios.get(`${urlQuizzes}/${key}`);
 
   promisse.then((result) => {
@@ -85,39 +82,46 @@ function loadQuizz(key) {
     quizzTitle.innerHTML = quizz.title;
     quizzImage.src = quizz.image;
 
-    for (let index = 0; index < questions.length; index++) {
-      console.log(questions[index]);
-      answers = questions[index].answers;
+    titleQuestion.innerHTML = "";
 
-      console.log(questions[index].title);
-      console.log(questions[index].color);
+    for (let i = 0; i < questions.length; i++) {
+      /*let headerQuestion = [];*/
 
-      for (let index = 0; index < answers.length; index++) {
-        console.log(answers[index]);
-        console.log(answers[index].image);
-        console.log(answers[index].isCorrectAnswer);
-        console.log(answers[index].text);
-      }
-      
+    /*  console.log(questions[i]);*/
+      answers = questions[i].answers;
+
+    /*  console.log(questions[i].title);
+      console.log(questions[i].color);*/
+
+      title = questions[i].title;
+      titleQuestion.innerHTML += `
+      <ul class="container-question">
+        <div class="title-quizz">
+          <div class="question-title">
+            <h1>${title}</h1>
+          </div>
+        </div>
+        <ul class="container-answer${i} style-answer">
+        </ul>
+      </ul>`;
+  
+      /*titleQuestion.innerHTML = headerQuestion;*/
+
+      for (let j = 0; j < answers.length; j++) {
+        const spaceAnswer = document.querySelector(`.container-answer${i}`);
+      /*  console.log(answers[j].isCorrectAnswer);*/
+
+        image = answers[j].image;
+        text = answers[j].text;
+        console.log(spaceAnswer);
+        spaceAnswer.innerHTML  += `<li class="answer">
+        <img src="${image}" alt="imagem de fundo">
+        <h2>${text}</h2>
+        </li>`;       
+      } 
     }
-
-    
-    console.log(quizz);
+    /*console.log(quizz);*/
   });
-
-  headerQuestion = `<div class="question-title">
-    <h1>Titulo da questão</h1>
-  </div>`;
-
-  titleQuestion.innerHTML = headerQuestion;
-
-  /*  for(let i = 1; i < 5; i++){
-    putAnswer += `<li class="answer">
-      <img src="https://blog.portalpos.com.br/app/uploads/2021/08/cores-768x511.jpg" alt="imagem de fundo">
-      <h2>Resposta ${[i]}</h2>
-      </li>`;
-    }
-  spaceAnswer.innerHTML = putAnswer;*/
 }
 
 function reloadQuizz() {

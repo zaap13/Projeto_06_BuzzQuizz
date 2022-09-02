@@ -262,7 +262,7 @@ body {
   color: #ffffff;
 }
 
-.container-answer {
+.style-answer {
   width: 688px;
   height: 500px;
   flex-wrap: wrap;
@@ -272,8 +272,12 @@ body {
   align-items: center;
 }
 
+.answer {
+  width: 330px;
+}
+
 .answer img {
-  width: 329px;
+  width: 330px;
   height: 175px;
   margin-bottom: 10px;
 }
