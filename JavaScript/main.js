@@ -1,6 +1,9 @@
 const urlQuizzes = "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes";
 let quizzes = [];
 let quizz = [];
+let levels = [];
+let questions = [];
+let answers = [];
 let putAnswer = [];
 let headerQuestion = [];
 
@@ -70,24 +73,45 @@ function loadQuizz(key) {
   const quizzTitle = document.querySelector(".container-quizz span");
   const quizzImage = document.querySelector(".container-quizz img");
   const titleQuestion = document.querySelector(".title-quizz");
-/*  const spaceAnswer = document.querySelector(".container-answer");*/
+  /*  const spaceAnswer = document.querySelector(".container-answer");*/
   const promisse = axios.get(`${urlQuizzes}/${key}`);
-  
+
   promisse.then((result) => {
     quizz = result.data;
 
+    questions = quizz.questions;
+    levels = quizz.levels;
+
     quizzTitle.innerHTML = quizz.title;
     quizzImage.src = quizz.image;
+
+    for (let index = 0; index < questions.length; index++) {
+      console.log(questions[index]);
+      answers = questions[index].answers;
+
+      console.log(questions[index].title);
+      console.log(questions[index].color);
+
+      for (let index = 0; index < answers.length; index++) {
+        console.log(answers[index]);
+        console.log(answers[index].image);
+        console.log(answers[index].isCorrectAnswer);
+        console.log(answers[index].text);
+      }
+      
+    }
+
+    
     console.log(quizz);
   });
 
- headerQuestion = `<div class="question-title">
+  headerQuestion = `<div class="question-title">
     <h1>Titulo da questão</h1>
   </div>`;
 
   titleQuestion.innerHTML = headerQuestion;
 
-/*  for(let i = 1; i < 5; i++){
+  /*  for(let i = 1; i < 5; i++){
     putAnswer += `<li class="answer">
       <img src="https://blog.portalpos.com.br/app/uploads/2021/08/cores-768x511.jpg" alt="imagem de fundo">
       <h2>Resposta ${[i]}</h2>
@@ -96,7 +120,6 @@ function loadQuizz(key) {
   spaceAnswer.innerHTML = putAnswer;*/
 }
 
-function reloadQuizz(){
-  setTimeout(() => 
-  window.scrollTo({top: 0, behavior: "smooth"}), 1000);
+function reloadQuizz() {
+  setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 1000);
 }
