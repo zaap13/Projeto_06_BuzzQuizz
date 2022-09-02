@@ -1,154 +1,186 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="CSS/reset.css">
-    <link rel="stylesheet" href="CSS/style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="CSS/reset.css" />
+    <link rel="stylesheet" href="CSS/style.css" />
 
     <title>Buzz Quizz</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <header class="header">
-        <h1 onclick="loadPage('quizz-list')">BuzzQuizz</h1>
+      <h1 onclick="loadPage('quizz-list')">BuzzQuizz</h1>
     </header>
 
     <main class="main">
-        <div class="quizz-list">
-            <div class="create-first-quizz">
-                <p class="create-first-quizz-msg">Você não criou nenhum quizz ainda :(</p>
-                <button class="create-first-quizz-button" onclick="loadPage('quizz-creator')">Criar Quizz</button>
-            </div>
-            <div class="user-quizzes hidden">
-                <div class="user-quizzes-title-box">
-                    <p class="user-quizzes-title">Seus Quizzes</p>
-                    <ion-icon class="user-quizzes-buttom" onclick="loadPage('quizz-creator')" name="add-circle-sharp"></ion-icon>
-                </div>
-                <ul class="user-quizzes-list">
-                    <!--Test Area-->
-                    <li class="quizz-box" onclick="loadPage(10535)">
-                        <img class="quizz-img" src="https://img.olhardigital.com.br/wp-content/uploads/2018/09/20180903133856-860x450.jpg" alt="Imagem do quizz">
-                        <p class="quizz-title">Titulo do quizz</p>
-                    </li>
-                    <!--Test Area-->
-                </ul>
-            </div>
-            <div class="all-quizzes">
-                <p class="all-quizzes-title">Todos os Quizzes</p>
-                <ul class="all-quizzes-list">
-
-                </ul>
-            </div>
+      <div class="quizz-list">
+        <div class="create-first-quizz">
+          <p class="create-first-quizz-msg">
+            Você não criou nenhum quizz ainda :(
+          </p>
+          <button
+            class="create-first-quizz-button"
+            onclick="loadPage('quizz-creator')"
+          >
+            Criar Quizz
+          </button>
         </div>
-        <!--inicio_pagina_2-->
-        <div class="quizz-page hidden">
+        <div class="user-quizzes hidden">
+          <div class="user-quizzes-title-box">
+            <p class="user-quizzes-title">Seus Quizzes</p>
+            <ion-icon
+              class="user-quizzes-buttom"
+              onclick="loadPage('quizz-creator')"
+              name="add-circle-sharp"
+            ></ion-icon>
+          </div>
+          <ul class="user-quizzes-list">
+            <!--Test Area-->
+            <li class="quizz-box" onclick="loadPage(10535)">
+              <img
+                class="quizz-img"
+                src="https://img.olhardigital.com.br/wp-content/uploads/2018/09/20180903133856-860x450.jpg"
+                alt="Imagem do quizz"
+              />
+              <p class="quizz-title">Titulo do quizz</p>
+            </li>
+            <!--Test Area-->
+          </ul>
+        </div>
+        <div class="all-quizzes">
+          <p class="all-quizzes-title">Todos os Quizzes</p>
+          <ul class="all-quizzes-list"></ul>
+        </div>
+      </div>
+      <!--inicio_pagina_2-->
+      <div class="quizz-page hidden">
         <!--background-->
-            <div class="container-quizz">
-                <img>
-                <span></span>
-            </div>
-            
-            <ul class="container-head"></ul>
-            <!--
-            <div class="container-question">
-                <ul class="container-answer">
-                </ul>
-            </div>
-            -->
+        <div class="container-quizz">
+          <img />
+          <span></span>
         </div>
+
+        <ul class="container-head"></ul>
         <button class="restart" onclick="reloadQuizz()">Reiniciar Quizz</button>
-        <button onclick="loadPage('quizz-list'), reloadQuizz()" class="back-button">Voltar pra home</button>
+        <button
+          onclick="loadPage('quizz-list'), reloadQuizz()"
+          class="back-button"
+        >
+          Voltar pra home
+        </button>
+      </div>
 
-        <!--fim_pagina_2-->
-        <div class="quizz-creator hidden">
-            <!-- começo_pagina_3 -->
-            <div class="container-creator">
-                <div class="start ">
-                    <h1>Comece pelo começo</h1>
-                    <div class="inputs basic">
-                        <input class="quizz-basic" type="text" placeholder="Titulo do seu quizz">
-                        <input class="quizz-basic" type="text" placeholder="URL da imagem do seu quizz">
-                        <input class="quizz-basic" type="text" placeholder="Quantidade de perguntas do quizz">
-                        <input class="quizz-basic" type="text" placeholder="Quantidade de niveis do quizz">
-                    </div>
-                    <button class="quizz-creator-button" onclick="creatorBasic()">Proseguir pra criar perguntas</button>
-                    <button class="back-button">Voltar pra home</button>
-                </div>
-                <div class="creator-question hidden">
-                    <h1>Crie suas perguntas</h1>
-                    <ul class="list-question-creator">
-                        <li class="inputs ">
-                            <h2>Pergunta 1</h2>
-                            <input type="text" placeholder="Texto da pergunta">
-                            <input type="text" placeholder="Cor de fundo da pergunta">
-                            <h2>Resposta correta</h2>
-                            <input type="text" placeholder="Resposta correta">
-                            <input type="text" placeholder="URL da imagem">
-                            <h2>Respostas Incorretas</h2>
-                            <div class="incorret">
-                                <input type="text" placeholder="Resposta Incorreta 1">
-                                <input type="text" placeholder="URL da imagem 1">
-                            </div>
-                            <div class="incorret">
-                                <input type="text" placeholder="Resposta Incorreta 2">
-                                <input type="text" placeholder="URL da imagem 2">
-                            </div>
-                            <div class="incorret">
-                                <input type="text" placeholder="Resposta Incorreta 3">
-                                <input type="text" placeholder="URL da imagem 3">
-                            </div>
-                        </li>
-                    </ul>
-                    <button class="quizz-creator-button">Prosseguir para criar niveis</button>
-                    <button class="back-button">Voltar pra home</button>
-                </div>
-                <div class="level hidden">
-                    <h1>Agora, decida os níveis</h1>
-                    <div class="inputs">
-                        <h2>Nivel 1</h2>
-                        <input type="text" placeholder="Titulo do nível">
-                        <input type="text" placeholder="% de acertos">
-                        <input type="text" placeholder="URL da imagem do nível">
-                        <input type="text" placeholder="Descrição do nível">
-                    </div>
-                    <div class="inputs">
-                        <h2>Nivel 2</h2>
-                        <input type="text" placeholder="Titulo do nível">
-                        <input type="text" placeholder="% de acertos">
-                        <input type="text" placeholder="URL da imagem do nível">
-                        <input type="text" placeholder="Descrição do nível">
-                    </div>
-                    <div class="inputs">
-                        <h2>Nivel 3</h2>
-                        <input type="text" placeholder="Titulo do nível">
-                        <input type="text" placeholder="% de acertos">
-                        <input type="text" placeholder="URL da imagem do nível">
-                        <input type="text" placeholder="Descrição do nível">
-                    </div>
-                    <button class="quizz-creator-button">Finalizar Quizz</button>
-                    <button class="back-button">Voltar pra home</button>
-                </div>
-                <div class="quizz-check hidden">
-                    <h1>Seu quizz está pronto!</h1>
-                    <div class="img-quizz-check">
-                        <img src="https://cdn1.epicgames.com/offer/e97659b501af4e3981d5430dad170911/EGS_HogwartsLegacy_AvalancheSoftware_S1_2560x1440-2baf3188eb3c1aa248bcc1af6a927b7e"/>
-                        <span class="title-image-quizz-check">O quão Potterhead é você?</span>
-                    </div>
-                    <button class="quizz-creator-button">Acessar Quizz</button>
-                    <button class="back-button">Voltar pra home</button>
-                </div>
+      <!--fim_pagina_2-->
+      <div class="quizz-creator hidden">
+        <!-- começo_pagina_3 -->
+        <div class="container-creator">
+          <div class="start">
+            <h1>Comece pelo começo</h1>
+            <div class="inputs basic">
+              <input
+                class="quizz-basic"
+                type="text"
+                placeholder="Titulo do seu quizz"
+              />
+              <input
+                class="quizz-basic"
+                type="text"
+                placeholder="URL da imagem do seu quizz"
+              />
+              <input
+                class="quizz-basic"
+                type="text"
+                placeholder="Quantidade de perguntas do quizz"
+              />
+              <input
+                class="quizz-basic"
+                type="text"
+                placeholder="Quantidade de niveis do quizz"
+              />
             </div>
+            <button class="quizz-creator-button" onclick="creatorBasic()">
+              Proseguir pra criar perguntas
+            </button>
+            <button class="back-button">Voltar pra home</button>
+          </div>
+          <div class="creator-question hidden">
+            <h1>Crie suas perguntas</h1>
+            <ul class="list-question-creator">
+              <li class="inputs">
+                <h2>Pergunta 1</h2>
+                <input type="text" placeholder="Texto da pergunta" />
+                <input type="text" placeholder="Cor de fundo da pergunta" />
+                <h2>Resposta correta</h2>
+                <input type="text" placeholder="Resposta correta" />
+                <input type="text" placeholder="URL da imagem" />
+                <h2>Respostas Incorretas</h2>
+                <div class="incorret">
+                  <input type="text" placeholder="Resposta Incorreta 1" />
+                  <input type="text" placeholder="URL da imagem 1" />
+                </div>
+                <div class="incorret">
+                  <input type="text" placeholder="Resposta Incorreta 2" />
+                  <input type="text" placeholder="URL da imagem 2" />
+                </div>
+                <div class="incorret">
+                  <input type="text" placeholder="Resposta Incorreta 3" />
+                  <input type="text" placeholder="URL da imagem 3" />
+                </div>
+              </li>
+            </ul>
+            <button class="quizz-creator-button">
+              Prosseguir para criar niveis
+            </button>
+            <button class="back-button">Voltar pra home</button>
+          </div>
+          <div class="level hidden">
+            <h1>Agora, decida os níveis</h1>
+            <div class="inputs">
+              <h2>Nivel 1</h2>
+              <input type="text" placeholder="Titulo do nível" />
+              <input type="text" placeholder="% de acertos" />
+              <input type="text" placeholder="URL da imagem do nível" />
+              <input type="text" placeholder="Descrição do nível" />
+            </div>
+            <div class="inputs">
+              <h2>Nivel 2</h2>
+              <input type="text" placeholder="Titulo do nível" />
+              <input type="text" placeholder="% de acertos" />
+              <input type="text" placeholder="URL da imagem do nível" />
+              <input type="text" placeholder="Descrição do nível" />
+            </div>
+            <div class="inputs">
+              <h2>Nivel 3</h2>
+              <input type="text" placeholder="Titulo do nível" />
+              <input type="text" placeholder="% de acertos" />
+              <input type="text" placeholder="URL da imagem do nível" />
+              <input type="text" placeholder="Descrição do nível" />
+            </div>
+            <button class="quizz-creator-button">Finalizar Quizz</button>
+            <button class="back-button">Voltar pra home</button>
+          </div>
+          <div class="quizz-check hidden">
+            <h1>Seu quizz está pronto!</h1>
+            <div class="img-quizz-check">
+              <img
+                src="https://cdn1.epicgames.com/offer/e97659b501af4e3981d5430dad170911/EGS_HogwartsLegacy_AvalancheSoftware_S1_2560x1440-2baf3188eb3c1aa248bcc1af6a927b7e"
+              />
+              <span class="title-image-quizz-check"
+                >O quão Potterhead é você?</span
+              >
+            </div>
+            <button class="quizz-creator-button">Acessar Quizz</button>
+            <button class="back-button">Voltar pra home</button>
+          </div>
         </div>
-
+      </div>
     </main>
 
     <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="JavaScript/main.js"></script>
-
-</body>
-
+  </body>
 </html>

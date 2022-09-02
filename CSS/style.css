@@ -9,6 +9,10 @@ body {
   background: #fafafa;
 }
 
+button:hover {
+  cursor: pointer;
+}
+
 .header {
   height: 69px;
   width: 100%;
@@ -209,6 +213,12 @@ body {
   position: relative;
 }
 
+.container-head {
+  display: flex;
+  flex-direction: column;
+  gap: 45px;
+}
+
 .container-quizz img {
   width: 100%;
   height: 180px;
@@ -216,7 +226,7 @@ body {
   margin-top: 69px;
 }
 
-.container-quizz span {  
+.container-quizz span {
   font-weight: 400;
   font-size: 39px;
   line-height: 45.7px;
@@ -232,12 +242,9 @@ body {
 
 .container-question {
   width: 759px;
-  height: 676px;
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  margin-top: 42px;
   background: #ffffff;
 }
 
@@ -287,8 +294,6 @@ body {
   font-weight: 700;
   font-size: 20px;
   line-height: 23.44px;
-
-  color: #000000;
 }
 
 .restart {
@@ -298,50 +303,49 @@ body {
   font-size: 18px;
 
   border: none;
-  background-color: #EC362D;
-  color: #FFFFFF;
-  
+  background-color: #ec362d;
+  color: #ffffff;
+
   border-radius: 15px;
   margin-bottom: 18px;
 }
 
-.green{
-  color: #009C22;
+.green {
+  color: #009c22;
 }
 
-.red{
-  color: #FF4B4B;
+.red {
+  color: #ff4b4b;
 }
 
-.opacity{
-  opacity:30%;
+.opacity {
+  opacity: 30%;
 }
 /*termino_pagina_2*/
 
 /* começo_pagina_3 */
-.quizz-creator{
+.quizz-creator {
   margin: 76px 0 0 0;
   display: flex;
 }
-.quizz-creator h1{
+.quizz-creator h1 {
   margin: 65px 0 34px 0;
   font-size: 23px;
   font-weight: 700;
   color: #000000;
 }
-.quizz-creator-button{
+.quizz-creator-button {
   width: 354px;
   height: 54px;
   margin: 70px 0 40px 0;
-  background: #EC362D;
+  background: #ec362d;
   border-radius: 15px;
-  border-style:ridge;
+  border-style: ridge;
   border: 0px;
 
   color: #fff5f4;
   font-weight: 400;
   font-size: 21px;
-
 }
 .container-creator {
   width: 100%;
@@ -349,38 +353,41 @@ body {
   flex-direction: column;
   align-items: center;
 }
-.start, .creator-question, .level,.quizz-check{
+.start,
+.creator-question,
+.level,
+.quizz-check {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   width: 600px;
 }
-.list-question-creator{
+.list-question-creator {
   width: 100%;
 }
-.inputs{
+.inputs {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
 }
-.question-creator-box{
+.question-creator-box {
   display: flex;
   width: 90%;
   justify-content: space-between;
   align-items: center;
 }
-.create{
+.create {
   width: 26px;
 }
-.basic{
+.basic {
   height: 270px;
 }
-.inputs input{
+.inputs input {
   margin-bottom: 9px;
   width: 90%;
   height: 46px;
@@ -390,63 +397,78 @@ body {
   font-weight: 400;
 }
 
-.quizz-creator h2{
-  margin: 20px /* 400px */0 15px 0;
+.quizz-creator h2 {
+  margin: 20px /* 400px */ 0 15px 0;
   font-size: 23px;
   font-weight: 700;
   color: #000000;
 }
-.inputs{
+.inputs {
   margin: 0 0 30px 0;
 }
-.incorret{
+.incorret {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   margin: 0 0 30px 0;
 }
-::-webkit-input-placeholder{
+::-webkit-input-placeholder {
   font-style: italic;
   font-weight: 400;
   font-size: 19px;
-  color: #BABABA;
+  color: #bababa;
 }
-.quizz-check img{
+.quizz-check img {
   width: 500px;
   height: 266px;
   border-radius: 5px;
 }
-.img-quizz-check{
+.img-quizz-check {
   position: relative;
 }
-.title-image-quizz-check{
+.title-image-quizz-check {
   position: absolute;
   left: 25px;
   bottom: 20px;
   font-weight: 400;
   font-size: 23px;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
-.back-button{
+.back-button {
   width: 354px;
   height: 54px;
   color: #818181;
   font-weight: 400;
   font-size: 21px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border-radius: 15px;
-  border-style:ridge;
+  border-style: ridge;
   border: 0px;
 }
 
 /* fim_pagina_3 */
 
+
+.correct {
+  color: #009C22;
+}
+
+.incorrect {
+  color: #FF4B4B;
+}
+
+.hidecolor {
+  color: #000000;
+}
+
+.opacity {
+  opacity: 0.3;
+}
+
 .hidden {
   /*deixar sempre abaixo*/
   display: none;
 }
-button:hover {
-  cursor: pointer;
-}
+
