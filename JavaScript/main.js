@@ -29,11 +29,11 @@ function loadQuizzes() {
   ul.innerHTML = "";
 
   quizzes.forEach((quizz) => {
-    ul.innerHTML += `<li class="quizz-box" onclick="loadPage(${quizz.id})">
-    <img class="quizz-img" src="${quizz.image}" alt="Imagem do quizz">
-    <p class="quizz-title">${quizz.title}</p>
-</li>
-        `;
+    ul.innerHTML += `
+    <li class="quizz-box" onclick="loadPage(${quizz.id})">
+      <img class="quizz-img" src="${quizz.image}" alt="Imagem do quizz">
+      <p class="quizz-title">${quizz.title}</p>
+    </li>`;
   });
 }
 
@@ -86,11 +86,12 @@ function loadQuizz(key) {
 
     for (let i = 0; i < questions.length; i++) {
       /*let headerQuestion = [];*/
-
-    /*  console.log(questions[i]);*/
+      /*  console.log(questions[i]);*/
       answers = questions[i].answers;
+      console.log(questions[i].answers);
 
-    /*  console.log(questions[i].title);
+      answers.sort(shuffle);
+      /*  console.log(questions[i].title);
       console.log(questions[i].color);*/
 
       title = questions[i].title;
@@ -104,24 +105,29 @@ function loadQuizz(key) {
         <ul class="container-answer${i} style-answer">
         </ul>
       </ul>`;
-  
+
       /*titleQuestion.innerHTML = headerQuestion;*/
 
-      for (let j = 0; j < answers.length; j++) {
+      for(let j = 0; j < answers.length; j++) {
         const spaceAnswer = document.querySelector(`.container-answer${i}`);
-      /*  console.log(answers[j].isCorrectAnswer);*/
+        /*  console.log(answers[j].isCorrectAnswer);*/
 
         image = answers[j].image;
         text = answers[j].text;
         console.log(spaceAnswer);
-        spaceAnswer.innerHTML  += `<li class="answer">
-        <img src="${image}" alt="imagem de fundo">
-        <h2>${text}</h2>
-        </li>`;       
-      } 
+        spaceAnswer.innerHTML += `
+        <li class="answer answer-id${i}">
+          <img src="${image}" alt="imagem de fundo">
+          <h2>${text}</h2>
+        </li>`;
+      }
     }
     /*console.log(quizz);*/
   });
+}
+
+function shuffle() {
+  return Math.random() - 0.5;
 }
 
 function reloadQuizz() {
