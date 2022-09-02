@@ -350,6 +350,9 @@ body {
   align-items: center;
   width: 600px;
 }
+.list-question-creator{
+  width: 100%;
+}
 .inputs{
   display: flex;
   flex-direction: column;
@@ -358,6 +361,15 @@ body {
   width: 100%;
   background: #FFFFFF;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+}
+.question-creator-box{
+  display: flex;
+  width: 90%;
+  justify-content: space-between;
+  align-items: center;
+}
+.create{
+  width: 26px;
 }
 .basic{
   height: 270px;

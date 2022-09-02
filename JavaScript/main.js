@@ -96,6 +96,97 @@ function loadQuizz(key) {
   spaceAnswer.innerHTML = putAnswer;*/
 }
 
+function hiddeQuestionInputs(imagem){
+  const pai = imagem.parentNode
+  const avô = pai.parentNode
+  const SegundoNeto = avô.children[1]
+  SegundoNeto.classList.toggle('hidden')
+}
+
+function creatorQuestions(nQuestions){
+  const listCreationQuestion = document.querySelector('.list-question-creator');
+  listCreationQuestion.innerHTML = ''
+  console.log('ja ta em outra funçao',nQuestions)
+  for(let i = 0; i<nQuestions;i++){
+    listCreationQuestion.innerHTML+=`
+    <li class="inputs">
+      <div class="question-creator-box">
+      <h2 class="question-creator-tittle">Pergunta ${i+1}</h2>
+      <img class="create" src="./img/create.png" onclick="hiddeQuestionInputs(this)"/>
+      </div>
+      <div class="hidden">
+      <input class="P${i+1}" type="text" placeholder="Texto da pergunta">
+      <input class="P${i+1}" type="text" placeholder="Cor de fundo da pergunta">
+      <h2 class="correct-answer-creator">Resposta correta</h2>
+      <input class="P${i+1}" type="text" placeholder="Resposta correta">
+      <input class="P${i+1}" type="text" placeholder="URL da imagem">
+      <h2 class="wrong-answer-creator">Respostas Incorretas</h2>
+      <div class="incorret">
+        <input class="P${i+1}" type="text" placeholder="Resposta Incorreta 1">
+        <input class="P${i+1}" type="text" placeholder="URL da imagem 1">
+      </div>
+      <div class="incorret">
+        <input class="P${i+1}" type="text" placeholder="Resposta Incorreta 2">
+        <input class="P${i+1}" type="text" placeholder="URL da imagem 2">
+      </div>
+      <div class="incorret">
+        <input class="P${i+1}" type="text" placeholder="Resposta Incorreta 3">
+        <input class="P${i+1}" type="text" placeholder="URL da imagem 3">
+      </div>
+      </div>
+    </li>
+    `
+  }
+
+}
+function creatorBasic(){
+  let listInputsBasic = document.querySelectorAll('.quizz-basic');
+
+  let titleQuizz = listInputsBasic[0].value;
+  console.log('Titulo',titleQuizz)
+
+  let UrlImg = listInputsBasic[1].value; // nao esta pronto
+
+  let QtdQuestion = listInputsBasic[2].value;
+  console.log('N PERGUNTAS', QtdQuestion)
+
+  let QtdLevels = listInputsBasic[3].value;
+  console.log('N LEVELS',QtdLevels)
+
+  let titleQuizzCharacters = (20< titleQuizz.length && titleQuizz.length<65) //consertar macaquice
+  
+  let CheckImg = UrlImg // nao esta pronto
+
+  let nCorrectQuestion = (parseInt(QtdQuestion) >= 3)
+
+  let nCorrectLevels = (parseInt(QtdLevels) >= 2)
+
+  console.log('titulo certo',titleQuizzCharacters)
+  console.log(CheckImg) // nao esta pronto
+  console.log('perguntas certas',nCorrectQuestion)
+  console.log('levels certos',nCorrectLevels)
+
+  /*{
+    title: string
+    image: string
+    questions: array de obj -> {title:str,image:str, answers:arry de obj}
+    levels: array de obj ->{title:str,image:str, text: str, minValue: Number}
+  } */
+  if(titleQuizzCharacters && nCorrectQuestion && nCorrectLevels){
+    creatorQuestions(parseInt(QtdQuestion))
+    alert('tudo certo')
+    document.querySelector('.start').classList.add('hidden')
+    document.querySelector('.creator-question').classList.remove('hidden')
+  }else{
+    alert(`
+    Titulo deve ter mais de 20 caracteres e menos de 65.
+    Perguntas deve ser maior ou igual a 3.
+    Niveis devem ser maior ou igual a 2.
+    `)
+  }
+
+}
+
 function reloadQuizz(){
   setTimeout(() => 
   window.scrollTo({top: 0, behavior: "smooth"}), 1000);
