@@ -4,6 +4,7 @@ let quizz = [];
 let levels = [];
 let questions = [];
 let answers = [];
+let count = 0;
 
 window.onload = () => {
   getQuizzes();
@@ -68,6 +69,8 @@ function loadPage(page) {
 }
 
 function loadQuizz(key) {
+  countCorrect = 0;
+  countClicked = 0;
   const quizzTitle = document.querySelector(".container-quizz span");
   const quizzImage = document.querySelector(".container-quizz img");
   const titleQuestion = document.querySelector(".container-head");
@@ -75,9 +78,10 @@ function loadQuizz(key) {
 
   promisse.then((result) => {
     quizz = result.data;
-
     questions = quizz.questions;
     levels = quizz.levels;
+
+    let qtdQuestions = questions.length;
 
     quizzTitle.innerHTML = quizz.title;
     quizzImage.src = quizz.image;
@@ -88,9 +92,9 @@ function loadQuizz(key) {
       /*let headerQuestion = [];*/
       /*  console.log(questions[i]);*/
       answers = questions[i].answers;
-      console.log(questions[i].answers);
+      //console.log(questions[i].answers);
 
-      answers.sort(shuffle);
+      //answers. (shuffle);
       /*  console.log(questions[i].title);
       console.log(questions[i].color);*/
 
@@ -108,93 +112,136 @@ function loadQuizz(key) {
 
       /*titleQuestion.innerHTML = headerQuestion;*/
 
-      for(let j = 0; j < answers.length; j++) {
+      for (let j = 0; j < answers.length; j++) {
         const spaceAnswer = document.querySelector(`.container-answer${i}`);
         /*  console.log(answers[j].isCorrectAnswer);*/
 
         image = answers[j].image;
         text = answers[j].text;
-        console.log(spaceAnswer);
-        spaceAnswer.innerHTML += `
-        <li class="answer answer-id${i}">
+
+        console.log(answers[j].isCorrectAnswer);
+
+        //EMBARALHAR AQUI
+
+        if (answers[j].isCorrectAnswer === true) {
+          spaceAnswer.innerHTML += `
+        <li class="answer-id${i} answer correct hidecolor" onclick="clickAnswer(this, ${qtdQuestions})">
           <img src="${image}" alt="imagem de fundo">
           <h2>${text}</h2>
         </li>`;
+        } else {
+          spaceAnswer.innerHTML += `
+          <li class="answer-id${i} answer incorrect hidecolor" onclick="clickAnswer(this, ${qtdQuestions})">
+            <img src="${image}" alt="imagem de fundo">
+            <h2>${text}</h2>
+          </li>`;
+        }
       }
     }
-    /*console.log(quizz);*/
   });
 }
 
-function hiddeQuestionInputs(imagem){
-  const pai = imagem.parentNode
-  const avô = pai.parentNode
-  const SegundoNeto = avô.children[1]
-  SegundoNeto.classList.toggle('hidden')
+function clickAnswer(ans, qtd) {
+  qtdQuestions = qtd;
+  countClicked++;
+  //console.log(countClicked);
+  answer = document.querySelectorAll(`.${ans.classList[0]}`);
+
+  if (ans.classList[2] === "correct") {
+    countCorrect++;
+    //console.log(countCorrect);
+  }
+
+  answer.forEach((ansid) => {
+    ansid.removeAttribute("onclick");
+    ansid.classList.remove("hidecolor");
+
+    if (ansid !== ans) {
+      ansid.classList.add("opacity");
+    }
+    //console.log(ansid);
+  });
+
+  if (countClicked === qtdQuestions){
+    console.log(`Voce fez ${(countCorrect/qtdQuestions)*100}% ;)`) // <<<< porcentagem de acerto
+    // aqui terminar o quizz e mostrar nível (chamar função?)
+  }
 }
 
-function creatorQuestions(nQuestions){
-  const listCreationQuestion = document.querySelector('.list-question-creator');
-  listCreationQuestion.innerHTML = ''
-  console.log('ja ta em outra funçao',nQuestions)
-  for(let i = 0; i<nQuestions;i++){
-    listCreationQuestion.innerHTML+=`
+function endQuizz() {
+  
+}
+
+function hiddeQuestionInputs(imagem) {
+  const pai = imagem.parentNode;
+  const avô = pai.parentNode;
+  const SegundoNeto = avô.children[1];
+  SegundoNeto.classList.toggle("hidden");
+}
+
+function creatorQuestions(nQuestions) {
+  const listCreationQuestion = document.querySelector(".list-question-creator");
+  listCreationQuestion.innerHTML = "";
+  console.log("ja ta em outra funçao", nQuestions);
+  for (let i = 0; i < nQuestions; i++) {
+    listCreationQuestion.innerHTML += `
     <li class="inputs">
       <div class="question-creator-box">
-      <h2 class="question-creator-tittle">Pergunta ${i+1}</h2>
+      <h2 class="question-creator-tittle">Pergunta ${i + 1}</h2>
       <img class="create" src="./img/create.png" onclick="hiddeQuestionInputs(this)"/>
       </div>
       <div class="hidden">
-      <input class="P${i+1}" type="text" placeholder="Texto da pergunta">
-      <input class="P${i+1}" type="text" placeholder="Cor de fundo da pergunta">
+      <input class="P${i + 1}" type="text" placeholder="Texto da pergunta">
+      <input class="P${
+        i + 1
+      }" type="text" placeholder="Cor de fundo da pergunta">
       <h2 class="correct-answer-creator">Resposta correta</h2>
-      <input class="P${i+1}" type="text" placeholder="Resposta correta">
-      <input class="P${i+1}" type="text" placeholder="URL da imagem">
+      <input class="P${i + 1}" type="text" placeholder="Resposta correta">
+      <input class="P${i + 1}" type="text" placeholder="URL da imagem">
       <h2 class="wrong-answer-creator">Respostas Incorretas</h2>
       <div class="incorret">
-        <input class="P${i+1}" type="text" placeholder="Resposta Incorreta 1">
-        <input class="P${i+1}" type="text" placeholder="URL da imagem 1">
+        <input class="P${i + 1}" type="text" placeholder="Resposta Incorreta 1">
+        <input class="P${i + 1}" type="text" placeholder="URL da imagem 1">
       </div>
       <div class="incorret">
-        <input class="P${i+1}" type="text" placeholder="Resposta Incorreta 2">
-        <input class="P${i+1}" type="text" placeholder="URL da imagem 2">
+        <input class="P${i + 1}" type="text" placeholder="Resposta Incorreta 2">
+        <input class="P${i + 1}" type="text" placeholder="URL da imagem 2">
       </div>
       <div class="incorret">
-        <input class="P${i+1}" type="text" placeholder="Resposta Incorreta 3">
-        <input class="P${i+1}" type="text" placeholder="URL da imagem 3">
+        <input class="P${i + 1}" type="text" placeholder="Resposta Incorreta 3">
+        <input class="P${i + 1}" type="text" placeholder="URL da imagem 3">
       </div>
       </div>
     </li>
-    `
+    `;
   }
-
 }
-function creatorBasic(){
-  let listInputsBasic = document.querySelectorAll('.quizz-basic');
+function creatorBasic() {
+  let listInputsBasic = document.querySelectorAll(".quizz-basic");
 
   let titleQuizz = listInputsBasic[0].value;
-  console.log('Titulo',titleQuizz)
+  console.log("Titulo", titleQuizz);
 
   let UrlImg = listInputsBasic[1].value; // nao esta pronto
 
   let QtdQuestion = listInputsBasic[2].value;
-  console.log('N PERGUNTAS', QtdQuestion)
+  console.log("N PERGUNTAS", QtdQuestion);
 
   let QtdLevels = listInputsBasic[3].value;
-  console.log('N LEVELS',QtdLevels)
+  console.log("N LEVELS", QtdLevels);
 
-  let titleQuizzCharacters = (20< titleQuizz.length && titleQuizz.length<65) //consertar macaquice
-  
-  let CheckImg = UrlImg // nao esta pronto
+  let titleQuizzCharacters = 20 < titleQuizz.length && titleQuizz.length < 65; //consertar macaquice
 
-  let nCorrectQuestion = (parseInt(QtdQuestion) >= 3)
+  let CheckImg = UrlImg; // nao esta pronto
 
-  let nCorrectLevels = (parseInt(QtdLevels) >= 2)
+  let nCorrectQuestion = parseInt(QtdQuestion) >= 3;
 
-  console.log('titulo certo',titleQuizzCharacters)
-  console.log(CheckImg) // nao esta pronto
-  console.log('perguntas certas',nCorrectQuestion)
-  console.log('levels certos',nCorrectLevels)
+  let nCorrectLevels = parseInt(QtdLevels) >= 2;
+
+  console.log("titulo certo", titleQuizzCharacters);
+  console.log(CheckImg); // nao esta pronto
+  console.log("perguntas certas", nCorrectQuestion);
+  console.log("levels certos", nCorrectLevels);
 
   /*{
     title: string
@@ -202,22 +249,20 @@ function creatorBasic(){
     questions: array de obj -> {title:str,image:str, answers:arry de obj}
     levels: array de obj ->{title:str,image:str, text: str, minValue: Number}
   } */
-  if(titleQuizzCharacters && nCorrectQuestion && nCorrectLevels){
-    creatorQuestions(parseInt(QtdQuestion))
-    alert('tudo certo')
-    document.querySelector('.start').classList.add('hidden')
-    document.querySelector('.creator-question').classList.remove('hidden')
-  }else{
+  if (titleQuizzCharacters && nCorrectQuestion && nCorrectLevels) {
+    creatorQuestions(parseInt(QtdQuestion));
+    alert("tudo certo");
+    document.querySelector(".start").classList.add("hidden");
+    document.querySelector(".creator-question").classList.remove("hidden");
+  } else {
     alert(`
     Titulo deve ter mais de 20 caracteres e menos de 65.
     Perguntas deve ser maior ou igual a 3.
     Niveis devem ser maior ou igual a 2.
-    `)
+    `);
   }
-
 }
 
-function reloadQuizz(){
-  setTimeout(() => 
-  window.scrollTo({top: 0, behavior: "smooth"}), 1000);
+function reloadQuizz() {
+  setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 1000);
 }
