@@ -190,32 +190,49 @@ function creatorQuestions(nQuestions) {
       <h2 class="question-creator-tittle">Pergunta ${i + 1}</h2>
       <img class="create" src="./img/create.png" onclick="hiddeQuestionInputs(this)"/>
       </div>
-      <div class="hidden">
+      <div class="info-question-creator hidden">
       <input class="P${i + 1}" type="text" placeholder="Texto da pergunta">
       <input class="P${
         i + 1
       }" type="text" placeholder="Cor de fundo da pergunta">
       <h2 class="correct-answer-creator">Resposta correta</h2>
       <input class="P${i + 1}" type="text" placeholder="Resposta correta">
-      <input class="P${i + 1}" type="text" placeholder="URL da imagem">
+      <input class="P${i + 1} URL" type="text" placeholder="URL da imagem">
       <h2 class="wrong-answer-creator">Respostas Incorretas</h2>
       <div class="incorret">
         <input class="P${i + 1}" type="text" placeholder="Resposta Incorreta 1">
-        <input class="P${i + 1}" type="text" placeholder="URL da imagem 1">
+        <input class="P${i + 1} URL" type="text" placeholder="URL da imagem 1">
       </div>
       <div class="incorret">
         <input class="P${i + 1}" type="text" placeholder="Resposta Incorreta 2">
-        <input class="P${i + 1}" type="text" placeholder="URL da imagem 2">
+        <input class="P${i + 1} URL" type="text" placeholder="URL da imagem 2">
       </div>
       <div class="incorret">
         <input class="P${i + 1}" type="text" placeholder="Resposta Incorreta 3">
-        <input class="P${i + 1}" type="text" placeholder="URL da imagem 3">
+        <input class="P${i + 1} URL" type="text" placeholder="URL da imagem 3">
       </div>
       </div>
     </li>
     `;
   }
 }
+
+
+
+function is_img(file) {
+	var img = new Image();
+	img.src = file;
+  
+	/* img.onload = function() {
+		console.log("A imagem " + file + " existe");
+    Éimg = true
+	} */
+	img.onerror = function() {
+		console.log("A imagem " + file + " NAO existe");
+    Éimg = false
+	}
+}
+
 function creatorBasic() {
   let listInputsBasic = document.querySelectorAll(".quizz-basic");
 
@@ -223,6 +240,8 @@ function creatorBasic() {
   console.log("Titulo", titleQuizz);
 
   let UrlImg = listInputsBasic[1].value; // nao esta pronto
+  let Éimg;
+  is_img(UrlImg)
 
   let QtdQuestion = listInputsBasic[2].value;
   console.log("N PERGUNTAS", QtdQuestion);
@@ -252,6 +271,7 @@ function creatorBasic() {
   if (titleQuizzCharacters && nCorrectQuestion && nCorrectLevels) {
     creatorQuestions(parseInt(QtdQuestion));
     alert("tudo certo");
+    alert(Éimg)
     document.querySelector(".start").classList.add("hidden");
     document.querySelector(".creator-question").classList.remove("hidden");
   } else {
