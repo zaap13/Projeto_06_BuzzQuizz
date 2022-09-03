@@ -1,7 +1,7 @@
 const urlQuizzes = "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes";
 let quizzes = [];
 let quizz = [];
-let levels = [];
+let levels = {};
 let questions = [];
 let answers = [];
 let count = 0;
@@ -80,6 +80,7 @@ function loadQuizz(key) {
     quizz = result.data;
     questions = quizz.questions;
     levels = quizz.levels;
+    console.log(levels);
 
     let qtdQuestions = questions.length;
 
@@ -91,10 +92,11 @@ function loadQuizz(key) {
     for (let i = 0; i < questions.length; i++) {
       /*let headerQuestion = [];*/
       /*  console.log(questions[i]);*/
+      answers = "";
       answers = questions[i].answers;
-      //console.log(questions[i].answers);
+      console.log(questions[i].answers);
 
-      //answers. (shuffle);
+      answers.sort(shuffle);
       /*  console.log(questions[i].title);
       console.log(questions[i].color);*/
 
@@ -122,7 +124,6 @@ function loadQuizz(key) {
         console.log(answers[j].isCorrectAnswer);
 
         //EMBARALHAR AQUI
-
         if (answers[j].isCorrectAnswer === true) {
           spaceAnswer.innerHTML += `
         <li class="answer-id${i} answer correct hidecolor" onclick="clickAnswer(this, ${qtdQuestions})">
@@ -142,10 +143,10 @@ function loadQuizz(key) {
 }
 
 function clickAnswer(ans, qtd) {
-  qtdQuestions = qtd;
+  let qtdQuestions = qtd;
   countClicked++;
   //console.log(countClicked);
-  answer = document.querySelectorAll(`.${ans.classList[0]}`);
+  let answer = document.querySelectorAll(`.${ans.classList[0]}`);
 
   if (ans.classList[2] === "correct") {
     countCorrect++;
@@ -162,14 +163,37 @@ function clickAnswer(ans, qtd) {
     //console.log(ansid);
   });
 
-  if (countClicked === qtdQuestions){
-    console.log(`Voce fez ${(countCorrect/qtdQuestions)*100}% ;)`) // <<<< porcentagem de acerto
+  if (countClicked === qtdQuestions) {
+    finalNumber = Math.round((countCorrect / qtdQuestions) * 100);
     // aqui terminar o quizz e mostrar nível (chamar função?)
+    console.log(levels);
+    let printLevel;
+    
+    for (let i = 0; i < levels.length; i++) {
+      if (finalNumber > levels[i].minValue) {
+        printLevel = levels[i];
+      }
+    }
+    endQuizz(printLevel);
   }
 }
 
-function endQuizz() {
-  
+function endQuizz(level) {
+  let printLevel = level;
+  console.log(printLevel);
+  const titleQuestion = document.querySelector(".container-head");
+  titleQuestion.innerHTML += ` 
+  <ul class="container-title">
+    <h1>${printLevel.title}</h1>
+  </ul>
+  <div class="container-body">
+    <img src="${printLevel.image}">
+    <p>${printLevel.text}</p>
+  </div>`;
+}
+
+function shuffle() {
+  return Math.random() - 0.5;
 }
 
 function hiddeQuestionInputs(imagem) {
