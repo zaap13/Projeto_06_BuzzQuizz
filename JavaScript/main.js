@@ -99,13 +99,13 @@ function loadQuizz(key) {
       console.log(questions[i].answers);
 
       answers.sort(shuffle);
-      /*  console.log(questions[i].title);
-      console.log(questions[i].color);*/
+      /*  console.log(questions[i].title);*/
+      color = questions[i].color;
 
       title = questions[i].title;
       titleQuestion.innerHTML += `
       <ul class="container-question container-adjust">
-          <div class="question-title">
+          <div class="question-title" style="background-color: ${color}">
             <h1>${title}</h1>
           </div>
         <ul class="container-answer${i} style-answer">
