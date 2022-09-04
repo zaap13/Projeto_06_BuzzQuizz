@@ -203,6 +203,8 @@ function hiddeQuestionInputs(imagem) {
   SegundoNeto.classList.toggle("hidden");
 }
 
+
+let mandandoPost = {title:'',image:'',questions:[],levels:[]}
 function printCreatorQuestions(nQuestions) {
   const listCreationQuestion = document.querySelector(".list-question-creator");
   listCreationQuestion.innerHTML = "";
@@ -221,15 +223,15 @@ function printCreatorQuestions(nQuestions) {
       <input class="P${i + 1} tittle-correct-answer" type="text" placeholder="Resposta correta">
       <input class="P${i + 1} URL" type="text" placeholder="URL da imagem">
       <h2 class="wrong-answer-creator">Respostas Incorretas</h2>
-      <div class="incorret">
+      <div class="incorrect">
         <input class="P${i + 1} tittle-wrong-answer" type="text" placeholder="Resposta Incorreta 1">
         <input class="P${i + 1} URL" type="text" placeholder="URL da imagem 1">
       </div>
-      <div class="incorret">
+      <div class="incorrect">
         <input class="P${i + 1} tittle-wrong-answer" type="text" placeholder="Resposta Incorreta 2">
         <input class="P${i + 1} URL" type="text" placeholder="URL da imagem 2">
       </div>
-      <div class="incorret">
+      <div class="incorrect">
         <input class="P${i + 1} tittle-wrong-answer" type="text" placeholder="Resposta Incorreta 3">
         <input class="P${i + 1} URL" type="text" placeholder="URL da imagem 3">
       </div>
@@ -275,10 +277,10 @@ function creatorBasic() {
 
   let UrlImg = listInputsBasic[1].value; // nao esta pronto
 
-  let QtdQuestion = listInputsBasic[2].value;
+  let QtdQuestion = parseInt(listInputsBasic[2].value);
   console.log("N PERGUNTAS", QtdQuestion);
 
-  let QtdLevels = listInputsBasic[3].value;
+  let QtdLevels = parseInt(listInputsBasic[3].value);
   console.log("N LEVELS", QtdLevels);
 
   let titleQuizzCharacters = 20 < titleQuizz.length && titleQuizz.length < 65; //consertar macaquice
@@ -287,9 +289,9 @@ function creatorBasic() {
   console.log('AQUI',UrlImg)
   console.log('AQUI',checkImg)
 
-  let nCorrectQuestion = parseInt(QtdQuestion) >= 3;
+  let nCorrectQuestion = QtdQuestion >= 3;
 
-  let nCorrectLevels = parseInt(QtdLevels) >= 2;
+  let nCorrectLevels = QtdLevels >= 2;
 
   console.log("titulo certo", titleQuizzCharacters);
   console.log('imagem é url? ',checkImg); // nao esta pronto
@@ -303,8 +305,10 @@ function creatorBasic() {
     levels: array de obj ->{title:str,image:str, text: str, minValue: Number}
   } */
   if (titleQuizzCharacters && nCorrectQuestion && nCorrectLevels && checkImg) {
-    printCreatorQuestions(parseInt(QtdQuestion));
-    printCreatorLevel(parseInt(QtdLevels));
+    printCreatorQuestions(QtdQuestion);
+    printCreatorLevel(QtdLevels);
+    mandandoPost.title = titleQuizz
+    mandandoPost.image = UrlImg
     alert("tudo certo");
     document.querySelector(".start").classList.add("hidden");
     document.querySelector(".creator-question").classList.remove("hidden");
@@ -316,10 +320,44 @@ function creatorBasic() {
     `);
   }
 }
+function storeQuestions(qtdeQuestions){
+  const listQuestions =[]
+  /* {titulo:in 1, cor:in 2, resposta:[{text: in3, url:in4, bool:true},{text: in5, url:in6, bool:false},{text: in7, url:in8, bool:false},{text: in9, url:in10, bool:false}]} */
+  /* {
+			title: "Título da pergunta 1",
+			color: "#123456",
+			answers: [
+				{
+					text: "Texto da resposta 1",
+					image: "https://http.cat/411.jpg",
+					isCorrectAnswer: true
+				},
+				{
+					text: "Texto da resposta 2",
+					image: "https://http.cat/412.jpg",
+					isCorrectAnswer: false
+				}
+			]
+		} */
+  for(let i = 0; i < qtdeQuestions; i++){
+    let listInputQuestions = document.querySelectorAll(`.P${i+1}`)
+    let question = {
+      title:listInputQuestions[0].value,
+      color:listInputQuestions[1].value,
+      answer:[{
+        text:listInputQuestions[2].value,
+        image:listInputQuestions[3].value,
+        isCorrectAnswer: true
+      }]
 
-function creatorQuestion(){
+    }
+  }
+  
+}
+function creatorQuestion(qtdeQuestions){
   const AllTittles = document.querySelectorAll('.tittle-question-creator');
   let compareTittle;
+  const titleList = []
   for(let i = 0; i < AllTittles.length; i++){
     //For que checa se os titulos tem mais de 20 caracteres
     let text = AllTittles[i].value;
@@ -328,6 +366,7 @@ function creatorQuestion(){
       break
     }else{
       compareTittle = true;
+      titleList.push(text)
     }
   }
   
@@ -344,30 +383,58 @@ function creatorQuestion(){
     }
   }
 
-  const AllWrongAnswer = document.querySelectorAll('.tittle-wrong-answer');
-  let compareWrongAnswer;// podendo ter apenas 1 ou 2 ou 3
-  for(let i = 0; i < AllWrongAnswer.length; i++){
-    let text = AllWrongAnswer[i].value
-    if(text === ''){
+  //const AllWrongAnswer = document.querySelectorAll('.tittle-wrong-answer');
+  let compareWrongAnswer;
+  for(let i = 0; i < qtdeQuestions; i++){
+    let listIncorrect = document.querySelectorAll(`.incorrect .P${i+1}`);
+    if(listIncorrect[0].value === ''){             
       compareWrongAnswer = false;
       break
     }else{
       compareWrongAnswer = true;
     }
+    /* if(text === ''){
+      compareWrongAnswer = false;
+      break
+    }else{
+      compareWrongAnswer = true;
+    } */
   }
 
-  const AllUrlQuestion = document.querySelectorAll('.list-question-creator .URL');
-  let compareUrlAnswer;
-  for(i = 0; i < AllUrlQuestion.length; i++){
-    //For que checa as URL certas
-    let text = AllUrlQuestion[i].value
-    if(isImage(text)){
-      compareUrlAnswer = true;
-    }else{
-      compareUrlAnswer = false;
-      break;
+  /* const AllUrlQuestion = document.querySelectorAll('.list-question-creator .URL'); */
+  let listUrlAnswer =[];
+  //For que checa as URL 
+  for(i = 0; i < qtdeQuestions; i++){
+    let listInputs = document.querySelectorAll(`.P${i+1}`);
+
+    for(let j = 0; j<listInputs.length; j++){
+      let text = listInputs[j].value
+      
+      if(j%2 === 0 && text !== '' && j !== 0){
+        let Url = listInputs[j+1].value
+        
+        listUrlAnswer.push(isImage(Url))
+      }
+      /* let text = AllUrlQuestion[i].value
+      if(isImage(text)){
+        compareUrlAnswer = true;
+      }else{
+        compareUrlAnswer = false;
+        break;
+      } */
     }
   }
+  console.log(compareCorrectAnswer)
+  console.log(compareWrongAnswer)
+  console.log(compareTittle)
+  console.log(listUrlAnswer)
+  let compareUrlAnswer;
+  if(listUrlAnswer.length === 0){
+    compareUrlAnswer = false
+  }else{
+    compareUrlAnswer = !listUrlAnswer.includes(false)
+  }
+
   if(compareCorrectAnswer && compareWrongAnswer && compareTittle && compareUrlAnswer){
     document.querySelector('.creator-question').classList.add('hidden')
     document.querySelector('.level').classList.remove('hidden')

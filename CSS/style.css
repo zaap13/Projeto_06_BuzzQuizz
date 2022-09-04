@@ -455,7 +455,7 @@ button:hover {
 .inputs {
   margin: 0 0 30px 0;
 }
-.incorret {
+.incorrect {
   display: flex;
   flex-direction: column;
   width: 100%;
