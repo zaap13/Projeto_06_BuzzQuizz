@@ -203,7 +203,9 @@ function hiddeQuestionInputs(imagem) {
   SegundoNeto.classList.toggle("hidden");
 }
 
-function creatorQuestions(nQuestions) {
+
+let mandandoPost = {title:'',image:'',questions:[],levels:[]}
+function printCreatorQuestions(nQuestions) {
   const listCreationQuestion = document.querySelector(".list-question-creator");
   listCreationQuestion.innerHTML = "";
   console.log("ja ta em outra funçao", nQuestions);
@@ -214,32 +216,59 @@ function creatorQuestions(nQuestions) {
       <h2 class="question-creator-tittle">Pergunta ${i + 1}</h2>
       <img class="create" src="./img/create.png" onclick="hiddeQuestionInputs(this)"/>
       </div>
-      <div class="hidden">
-      <input class="P${i + 1}" type="text" placeholder="Texto da pergunta">
-      <input class="P${
-        i + 1
-      }" type="text" placeholder="Cor de fundo da pergunta">
+      <div class="info-question-creator hidden">
+      <input class="P${i + 1} tittle-question-creator" type="text" placeholder="Texto da pergunta">
+      <input class="P${i + 1} color-question-creator" type="color" placeholder="Cor de fundo da pergunta">
       <h2 class="correct-answer-creator">Resposta correta</h2>
-      <input class="P${i + 1}" type="text" placeholder="Resposta correta">
-      <input class="P${i + 1}" type="text" placeholder="URL da imagem">
+      <input class="P${i + 1} tittle-correct-answer" type="text" placeholder="Resposta correta">
+      <input class="P${i + 1} URL" type="text" placeholder="URL da imagem">
       <h2 class="wrong-answer-creator">Respostas Incorretas</h2>
-      <div class="incorret">
-        <input class="P${i + 1}" type="text" placeholder="Resposta Incorreta 1">
-        <input class="P${i + 1}" type="text" placeholder="URL da imagem 1">
+      <div class="incorrect">
+        <input class="P${i + 1} tittle-wrong-answer" type="text" placeholder="Resposta Incorreta 1">
+        <input class="P${i + 1} URL" type="text" placeholder="URL da imagem 1">
       </div>
-      <div class="incorret">
-        <input class="P${i + 1}" type="text" placeholder="Resposta Incorreta 2">
-        <input class="P${i + 1}" type="text" placeholder="URL da imagem 2">
+      <div class="incorrect">
+        <input class="P${i + 1} tittle-wrong-answer" type="text" placeholder="Resposta Incorreta 2">
+        <input class="P${i + 1} URL" type="text" placeholder="URL da imagem 2">
       </div>
-      <div class="incorret">
-        <input class="P${i + 1}" type="text" placeholder="Resposta Incorreta 3">
-        <input class="P${i + 1}" type="text" placeholder="URL da imagem 3">
+      <div class="incorrect">
+        <input class="P${i + 1} tittle-wrong-answer" type="text" placeholder="Resposta Incorreta 3">
+        <input class="P${i + 1} URL" type="text" placeholder="URL da imagem 3">
       </div>
       </div>
     </li>
     `;
   }
 }
+
+function printCreatorLevel(nLevels){
+  const listCreationLevel = document.querySelector(".list-level-creator");
+  listCreationLevel.innerHTML ="";
+
+  for(let i = 0; i<nLevels;i++){
+    listCreationLevel.innerHTML+=`
+    <li class="inputs">
+      <h2>Nivel ${i+1}</h2>
+      <input class="N${i+1} tittle-level-creator" type="text" placeholder="Titulo do nível" />
+      <input class="N${i+1} percent-level-creator" type="text" placeholder="% de acertos" />
+      <input class="N${i+1} URL-level-creator" type="text" placeholder="URL da imagem do nível" />
+      <input class="N${i+1} description-level-creator" type="text" placeholder="Descrição do nível" />
+    </li>
+    `
+  }
+}
+
+
+function isImage(url) {
+  const TypeList =['.jpg','.jpeg','.png','.webp','.avif','.gif','.svg'];
+  for(let i = 0; i < TypeList.length; i++){
+    if(url.includes(TypeList[i])){
+      return true;
+    }
+  }
+  return false
+}
+
 function creatorBasic() {
   let listInputsBasic = document.querySelectorAll(".quizz-basic");
 
@@ -248,22 +277,24 @@ function creatorBasic() {
 
   let UrlImg = listInputsBasic[1].value; // nao esta pronto
 
-  let QtdQuestion = listInputsBasic[2].value;
+  let QtdQuestion = parseInt(listInputsBasic[2].value);
   console.log("N PERGUNTAS", QtdQuestion);
 
-  let QtdLevels = listInputsBasic[3].value;
+  let QtdLevels = parseInt(listInputsBasic[3].value);
   console.log("N LEVELS", QtdLevels);
 
   let titleQuizzCharacters = 20 < titleQuizz.length && titleQuizz.length < 65; //consertar macaquice
 
-  let CheckImg = UrlImg; // nao esta pronto
+  let checkImg = isImage(UrlImg);
+  console.log('AQUI',UrlImg)
+  console.log('AQUI',checkImg)
 
-  let nCorrectQuestion = parseInt(QtdQuestion) >= 3;
+  let nCorrectQuestion = QtdQuestion >= 3;
 
-  let nCorrectLevels = parseInt(QtdLevels) >= 2;
+  let nCorrectLevels = QtdLevels >= 2;
 
   console.log("titulo certo", titleQuizzCharacters);
-  console.log(CheckImg); // nao esta pronto
+  console.log('imagem é url? ',checkImg); // nao esta pronto
   console.log("perguntas certas", nCorrectQuestion);
   console.log("levels certos", nCorrectLevels);
 
@@ -273,8 +304,11 @@ function creatorBasic() {
     questions: array de obj -> {title:str,image:str, answers:arry de obj}
     levels: array de obj ->{title:str,image:str, text: str, minValue: Number}
   } */
-  if (titleQuizzCharacters && nCorrectQuestion && nCorrectLevels) {
-    creatorQuestions(parseInt(QtdQuestion));
+  if (titleQuizzCharacters && nCorrectQuestion && nCorrectLevels && checkImg) {
+    printCreatorQuestions(QtdQuestion);
+    printCreatorLevel(QtdLevels);
+    mandandoPost.title = titleQuizz
+    mandandoPost.image = UrlImg
     alert("tudo certo");
     document.querySelector(".start").classList.add("hidden");
     document.querySelector(".creator-question").classList.remove("hidden");
@@ -284,6 +318,128 @@ function creatorBasic() {
     Perguntas deve ser maior ou igual a 3.
     Niveis devem ser maior ou igual a 2.
     `);
+  }
+}
+function storeQuestions(qtdeQuestions){
+  const listQuestions =[]
+  /* {titulo:in 1, cor:in 2, resposta:[{text: in3, url:in4, bool:true},{text: in5, url:in6, bool:false},{text: in7, url:in8, bool:false},{text: in9, url:in10, bool:false}]} */
+  /* {
+			title: "Título da pergunta 1",
+			color: "#123456",
+			answers: [
+				{
+					text: "Texto da resposta 1",
+					image: "https://http.cat/411.jpg",
+					isCorrectAnswer: true
+				},
+				{
+					text: "Texto da resposta 2",
+					image: "https://http.cat/412.jpg",
+					isCorrectAnswer: false
+				}
+			]
+		} */
+  for(let i = 0; i < qtdeQuestions; i++){
+    let listInputQuestions = document.querySelectorAll(`.P${i+1}`)
+    let question = {
+      title:listInputQuestions[0].value,
+      color:listInputQuestions[1].value,
+      answer:[{
+        text:listInputQuestions[2].value,
+        image:listInputQuestions[3].value,
+        isCorrectAnswer: true
+      }]
+
+    }
+  }
+  
+}
+function creatorQuestion(qtdeQuestions){
+  const AllTittles = document.querySelectorAll('.tittle-question-creator');
+  let compareTittle;
+  const titleList = []
+  for(let i = 0; i < AllTittles.length; i++){
+    //For que checa se os titulos tem mais de 20 caracteres
+    let text = AllTittles[i].value;
+    if(text.length < 20){
+      compareTittle = false;
+      break
+    }else{
+      compareTittle = true;
+      titleList.push(text)
+    }
+  }
+  
+  const AllCorrectAnswer = document.querySelectorAll('.tittle-correct-answer');
+  let compareCorrectAnswer;
+  for(let i = 0; i < AllCorrectAnswer.length; i++){
+    //For que checa as perguntas certas
+    let text = AllCorrectAnswer[i].value;
+    if(text === ''){
+      compareCorrectAnswer = false;
+      break
+    }else{
+      compareCorrectAnswer = true;
+    }
+  }
+
+  //const AllWrongAnswer = document.querySelectorAll('.tittle-wrong-answer');
+  let compareWrongAnswer;
+  for(let i = 0; i < qtdeQuestions; i++){
+    let listIncorrect = document.querySelectorAll(`.incorrect .P${i+1}`);
+    if(listIncorrect[0].value === ''){             
+      compareWrongAnswer = false;
+      break
+    }else{
+      compareWrongAnswer = true;
+    }
+    /* if(text === ''){
+      compareWrongAnswer = false;
+      break
+    }else{
+      compareWrongAnswer = true;
+    } */
+  }
+
+  /* const AllUrlQuestion = document.querySelectorAll('.list-question-creator .URL'); */
+  let listUrlAnswer =[];
+  //For que checa as URL 
+  for(i = 0; i < qtdeQuestions; i++){
+    let listInputs = document.querySelectorAll(`.P${i+1}`);
+
+    for(let j = 0; j<listInputs.length; j++){
+      let text = listInputs[j].value
+      
+      if(j%2 === 0 && text !== '' && j !== 0){
+        let Url = listInputs[j+1].value
+        
+        listUrlAnswer.push(isImage(Url))
+      }
+      /* let text = AllUrlQuestion[i].value
+      if(isImage(text)){
+        compareUrlAnswer = true;
+      }else{
+        compareUrlAnswer = false;
+        break;
+      } */
+    }
+  }
+  console.log(compareCorrectAnswer)
+  console.log(compareWrongAnswer)
+  console.log(compareTittle)
+  console.log(listUrlAnswer)
+  let compareUrlAnswer;
+  if(listUrlAnswer.length === 0){
+    compareUrlAnswer = false
+  }else{
+    compareUrlAnswer = !listUrlAnswer.includes(false)
+  }
+
+  if(compareCorrectAnswer && compareWrongAnswer && compareTittle && compareUrlAnswer){
+    document.querySelector('.creator-question').classList.add('hidden')
+    document.querySelector('.level').classList.remove('hidden')
+  }else{
+    alert('Por favor, preeencha todos os dados corretamentes!')
   }
 }
 
