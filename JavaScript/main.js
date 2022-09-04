@@ -53,18 +53,20 @@ function loadPage(page) {
   quizzCreator = document.querySelector(".quizz-creator");
 
   if (page === "quizz-list") {
+    reloadMenu();
     quizzList.classList.remove("hidden");
     quizzCreator.classList.add("hidden");
     quizzPage.classList.add("hidden");
   } else if (page === "quizz-creator") {
+    reloadMenu();
     quizzCreator.classList.remove("hidden");
     quizzPage.classList.add("hidden");
     quizzList.classList.add("hidden");
   } else {
+    reloadMenu();
     quizzPage.classList.remove("hidden");
     quizzCreator.classList.add("hidden");
     quizzList.classList.add("hidden");
-
     loadQuizz(page);
   }
 }
@@ -440,7 +442,11 @@ function creatorQuestion(){
   }
 }
 
-function reloadQuizz() {
-  setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 1000);
+function reloadMenu() {
+  setTimeout(() => window.scrollTo({ top: 0, behavior: "auto" }), 0);
+}
+
+function reloadQuizz(){  
+  setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 2000);
   loadQuizz(gameID);
 }
