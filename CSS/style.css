@@ -294,6 +294,8 @@ button:hover {
 .container-body {
   margin-top: 20px;
   width: 727px;
+  height: 313px;
+
   display: flex;
   justify-content:flex-start;
 }
@@ -351,6 +353,7 @@ button:hover {
 
 .answer {
   width: 330px;
+  background-color: #FFFFFF;
   cursor: pointer;
 }
 
@@ -519,7 +522,7 @@ button:hover {
   color: #009C22;
 }
 
-.incorrect {
+.incorrectAnswer {
   color: #FF4B4B;
 }
 

@@ -131,7 +131,7 @@ function loadQuizz(key) {
         </li>`;
         } else {
           spaceAnswer.innerHTML += `
-          <li class="answer-id${i} answer incorrect hidecolor" onclick="clickAnswer(this, ${qtdQuestions})">
+          <li class="answer-id${i} answer incorrectAnswer hidecolor" onclick="clickAnswer(this, ${qtdQuestions})">
             <img src="${image}" alt="imagem de fundo">
             <h2>${text}</h2>
           </li>`;
