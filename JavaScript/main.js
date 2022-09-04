@@ -204,12 +204,14 @@ function hiddeQuestionInputs(imagem) {
 }
 
 
-let mandandoPost = {title:'',image:'',questions:[],levels:[]}
-function printCreatorQuestions(nQuestions) {
+let PostToSend = {title:'',image:'',questions:[],levels:[]}
+
+function printCreatorQuestions() {
+  //Funcao que printa as caixas de perguntas dependendo da resposta do usuario na tela 3.1
   const listCreationQuestion = document.querySelector(".list-question-creator");
   listCreationQuestion.innerHTML = "";
-  console.log("ja ta em outra funçao", nQuestions);
-  for (let i = 0; i < nQuestions; i++) {
+  console.log("ja ta em outra funçao", QtdQuestionCreator);
+  for (let i = 0; i < QtdQuestionCreator; i++) {
     listCreationQuestion.innerHTML += `
     <li class="inputs">
       <div class="question-creator-box">
@@ -241,11 +243,12 @@ function printCreatorQuestions(nQuestions) {
   }
 }
 
-function printCreatorLevel(nLevels){
+function printCreatorLevel(){
+  //Funcao que printa as caixas de levels dependendo da resposta do usuario na tela 3.1
   const listCreationLevel = document.querySelector(".list-level-creator");
   listCreationLevel.innerHTML ="";
 
-  for(let i = 0; i<nLevels;i++){
+  for(let i = 0; i< QtdLevelsCreator;i++){
     listCreationLevel.innerHTML+=`
     <li class="inputs">
       <h2>Nivel ${i+1}</h2>
@@ -269,6 +272,8 @@ function isImage(url) {
   return false
 }
 
+let QtdQuestionCreator;
+let QtdLevelsCreator;
 function creatorBasic() {
   let listInputsBasic = document.querySelectorAll(".quizz-basic");
 
@@ -277,11 +282,11 @@ function creatorBasic() {
 
   let UrlImg = listInputsBasic[1].value; // nao esta pronto
 
-  let QtdQuestion = parseInt(listInputsBasic[2].value);
-  console.log("N PERGUNTAS", QtdQuestion);
+  QtdQuestionCreator = parseInt(listInputsBasic[2].value);
+  console.log("N PERGUNTAS", QtdQuestionCreator);
 
-  let QtdLevels = parseInt(listInputsBasic[3].value);
-  console.log("N LEVELS", QtdLevels);
+  QtdLevelsCreator = parseInt(listInputsBasic[3].value);
+  console.log("N LEVELS", QtdLevelsCreator);
 
   let titleQuizzCharacters = 20 < titleQuizz.length && titleQuizz.length < 65; //consertar macaquice
 
@@ -289,26 +294,21 @@ function creatorBasic() {
   console.log('AQUI',UrlImg)
   console.log('AQUI',checkImg)
 
-  let nCorrectQuestion = QtdQuestion >= 3;
+  let nCorrectQuestion = QtdQuestionCreator >= 3;
 
-  let nCorrectLevels = QtdLevels >= 2;
+  let nCorrectLevels = QtdLevelsCreator >= 2;
 
   console.log("titulo certo", titleQuizzCharacters);
-  console.log('imagem é url? ',checkImg); // nao esta pronto
+  console.log('imagem é url? ',checkImg); 
   console.log("perguntas certas", nCorrectQuestion);
   console.log("levels certos", nCorrectLevels);
 
-  /*{
-    title: string
-    image: string
-    questions: array de obj -> {title:str,image:str, answers:arry de obj}
-    levels: array de obj ->{title:str,image:str, text: str, minValue: Number}
-  } */
+
   if (titleQuizzCharacters && nCorrectQuestion && nCorrectLevels && checkImg) {
-    printCreatorQuestions(QtdQuestion);
-    printCreatorLevel(QtdLevels);
-    mandandoPost.title = titleQuizz
-    mandandoPost.image = UrlImg
+    printCreatorQuestions();
+    printCreatorLevel();
+    PostToSend.title = titleQuizz
+    PostToSend.image = UrlImg
     alert("tudo certo");
     document.querySelector(".start").classList.add("hidden");
     document.querySelector(".creator-question").classList.remove("hidden");
@@ -320,41 +320,45 @@ function creatorBasic() {
     `);
   }
 }
-function storeQuestions(qtdeQuestions){
-  const listQuestions =[]
-  /* {titulo:in 1, cor:in 2, resposta:[{text: in3, url:in4, bool:true},{text: in5, url:in6, bool:false},{text: in7, url:in8, bool:false},{text: in9, url:in10, bool:false}]} */
-  /* {
-			title: "Título da pergunta 1",
-			color: "#123456",
-			answers: [
-				{
-					text: "Texto da resposta 1",
-					image: "https://http.cat/411.jpg",
-					isCorrectAnswer: true
-				},
-				{
-					text: "Texto da resposta 2",
-					image: "https://http.cat/412.jpg",
-					isCorrectAnswer: false
-				}
-			]
-		} */
-  for(let i = 0; i < qtdeQuestions; i++){
-    let listInputQuestions = document.querySelectorAll(`.P${i+1}`)
-    let question = {
-      title:listInputQuestions[0].value,
-      color:listInputQuestions[1].value,
-      answer:[{
-        text:listInputQuestions[2].value,
-        image:listInputQuestions[3].value,
-        isCorrectAnswer: true
-      }]
-
+function storeQuestions(){
+  const listQuestions =[];
+  for(let i = 0; i < QtdQuestionCreator; i++){
+    let listInputQuestions = document.querySelectorAll(`.P${i+1}`);
+    let objQuestion = {title:'',color:'',answers:[]};
+    console.log(listInputQuestions);
+    let listAnswers =[];
+    for(let j = 0; j < listInputQuestions.length; j++){
+      let text = listInputQuestions[j].value;
+      let strEmpty = (text !== '');
+      if(strEmpty && j === 0){
+        let backcolor = listInputQuestions[j+1].value;
+        console.log(text, backcolor);
+        objQuestion = {
+          title:text,
+          color: backcolor,
+          answers: objQuestion.answers
+        }
+      }else if(text && j === 2){
+        let answerUrl = listInputQuestions[j+1].value;
+        console.log(text, answerUrl);
+        let obj ={text: text, image: answerUrl, isCorrectAnswer: true};
+        listAnswers.push(obj);
+      }else if(strEmpty && (3<j<9) && j%2 === 0){
+        let answerUrl = listInputQuestions[j+1].value;
+        console.log(text, answerUrl);
+        let obj ={text: text, image: answerUrl, isCorrectAnswer: false};
+        listAnswers.push(obj);
+      }
     }
+    objQuestion = {title: objQuestion.title,color:objQuestion.color,answers:listAnswers}
+    listQuestions.push(objQuestion)
+    console.log(objQuestion)    
   }
-  
+  console.log(listQuestions)
+  PostToSend.questions = listQuestions
 }
-function creatorQuestion(qtdeQuestions){
+  
+function creatorQuestion(){
   const AllTittles = document.querySelectorAll('.tittle-question-creator');
   let compareTittle;
   const titleList = []
@@ -385,7 +389,7 @@ function creatorQuestion(qtdeQuestions){
 
   //const AllWrongAnswer = document.querySelectorAll('.tittle-wrong-answer');
   let compareWrongAnswer;
-  for(let i = 0; i < qtdeQuestions; i++){
+  for(let i = 0; i < QtdQuestionCreator; i++){
     let listIncorrect = document.querySelectorAll(`.incorrect .P${i+1}`);
     if(listIncorrect[0].value === ''){             
       compareWrongAnswer = false;
@@ -393,18 +397,17 @@ function creatorQuestion(qtdeQuestions){
     }else{
       compareWrongAnswer = true;
     }
-    /* if(text === ''){
-      compareWrongAnswer = false;
+    if(listIncorrect[4].value !== '' && listIncorrect[2].value === ''){
+      //condiçao para se preencher a resposta incorreta 3 nao deixar a 2 em branco
+      compareWrongAnswer = false
       break
-    }else{
-      compareWrongAnswer = true;
-    } */
+    }
   }
 
-  /* const AllUrlQuestion = document.querySelectorAll('.list-question-creator .URL'); */
+  
   let listUrlAnswer =[];
   //For que checa as URL 
-  for(i = 0; i < qtdeQuestions; i++){
+  for(i = 0; i < QtdQuestionCreator; i++){
     let listInputs = document.querySelectorAll(`.P${i+1}`);
 
     for(let j = 0; j<listInputs.length; j++){
@@ -415,13 +418,6 @@ function creatorQuestion(qtdeQuestions){
         
         listUrlAnswer.push(isImage(Url))
       }
-      /* let text = AllUrlQuestion[i].value
-      if(isImage(text)){
-        compareUrlAnswer = true;
-      }else{
-        compareUrlAnswer = false;
-        break;
-      } */
     }
   }
   console.log(compareCorrectAnswer)
@@ -436,6 +432,7 @@ function creatorQuestion(qtdeQuestions){
   }
 
   if(compareCorrectAnswer && compareWrongAnswer && compareTittle && compareUrlAnswer){
+    storeQuestions();
     document.querySelector('.creator-question').classList.add('hidden')
     document.querySelector('.level').classList.remove('hidden')
   }else{
