@@ -164,6 +164,7 @@ button:hover {
   height: 100%;
   opacity: 0.8;
   position: absolute;
+  cursor: pointer;
 }
 
 .quizz-img:hover {
@@ -179,7 +180,7 @@ button:hover {
   line-height: 22px;
   display: flex;
   align-items: center;
-
+  cursor: pointer;
   color: #ffffff;
 }
 
@@ -235,7 +236,7 @@ button:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  word-break: break-all;
+  word-break: break-word;
 
   text-align: center;
 
@@ -251,6 +252,8 @@ button:hover {
 .container-question {
   width: 759px;
   height: 676px;
+  display: flex;
+  justify-content: center;
 }
 
 .container-answer {
@@ -282,7 +285,7 @@ button:hover {
   margin: 0 14px;
 
   text-align:center;
-  word-break: break-all;
+  word-break: break-word;
 
   display: flex;
   align-items: center;
@@ -297,13 +300,12 @@ button:hover {
   height: 313px;
 
   display: flex;
-  justify-content:flex-start;
+  justify-content:space-between;
 }
 
 .container-body img {
   width: 364px;
   height: 273px;
-  margin-right: 21px;
 }
 
 .container-body p {
@@ -314,7 +316,7 @@ button:hover {
   line-height: 25px;
 
   text-align:initial;
-  word-break: break-all;
+  word-break: break-word;
 
   color: #484848;
 }
@@ -335,7 +337,7 @@ button:hover {
   line-height: 26.95px;
   text-align: center;
   
-  word-break: break-all;
+  word-break: break-word;
 
   color: #ffffff;
 }
@@ -348,22 +350,27 @@ button:hover {
 
   display: flex;
   justify-content: space-between;
-  align-items: center;
+
+  margin-top: 20px;
 }
 
 .answer {
   width: 330px;
+  height: 175px;
   background-color: #FFFFFF;
-  cursor: pointer;
+
 }
 
 .answer img {
   width: 330px;
   height: 175px;
   margin-bottom: 10px;
+  cursor: pointer;
 }
 
 .answer h2 {
+  height: auto;
+  word-break: break-word;
   font-weight: 700;
   font-size: 20px;
   line-height: 23.44px;
@@ -380,6 +387,7 @@ button:hover {
   color: #ffffff;
 
   border-radius: 15px;
+  margin-top: 48px;
   margin-bottom: 18px;
 }
 /*termino_pagina_2*/
@@ -540,6 +548,25 @@ button:hover {
 }
 
 @media (max-width: 1100px){
+  /*inicio_pagina_1*/
+  .create-first-quizz {
+    width: 341px;
+    height: 181px;
+  }
+  
+  .create-first-quizz-button {
+    width: 136px;
+  }
+
+  .all-quizzes {
+    display: flex;
+    flex-direction: column;
+    width: 340px;
+    gap: 12px;
+  }
+
+  /*termino_pagina_1*/
+
   /*inicio_pagina_2*/
   .container-quizz img {
     height: 142px;
@@ -555,6 +582,7 @@ button:hover {
   }
 
   .question-title {
+    margin-top: 10px;
     width: 340px;
     height: 89px;
   }
@@ -572,6 +600,7 @@ button:hover {
 
   .answer {
     width: 163px;
+    height: 113px;
   }
   
   .answer img {
@@ -587,7 +616,7 @@ button:hover {
 
   .container-answer {
     width: 375px;
-    height: 500px;
+    height: auto;
   }
 
   .container-title{
@@ -603,6 +632,7 @@ button:hover {
 
   .container-body {
     width: 340px;
+    height: auto;
     display: flex;
     flex-wrap: wrap;
   }
