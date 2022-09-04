@@ -5,6 +5,7 @@ let levels = {};
 let questions = [];
 let answers = [];
 let count = 0;
+let gameID;
 
 window.onload = () => {
   getQuizzes();
@@ -69,6 +70,7 @@ function loadPage(page) {
 }
 
 function loadQuizz(key) {
+  gameID = key;
   countCorrect = 0;
   countClicked = 0;
   const quizzTitle = document.querySelector(".container-quizz span");
@@ -102,12 +104,10 @@ function loadQuizz(key) {
 
       title = questions[i].title;
       titleQuestion.innerHTML += `
-      <ul class="container-question">
-        <div class="title-quizz">
+      <ul class="container-question container-adjust">
           <div class="question-title">
             <h1>${title}</h1>
           </div>
-        </div>
         <ul class="container-answer${i} style-answer">
         </ul>
       </ul>`;
@@ -123,7 +123,6 @@ function loadQuizz(key) {
 
         console.log(answers[j].isCorrectAnswer);
 
-        //EMBARALHAR AQUI
         if (answers[j].isCorrectAnswer === true) {
           spaceAnswer.innerHTML += `
         <li class="answer-id${i} answer correct hidecolor" onclick="clickAnswer(this, ${qtdQuestions})">
@@ -165,30 +164,31 @@ function clickAnswer(ans, qtd) {
 
   if (countClicked === qtdQuestions) {
     finalNumber = Math.round((countCorrect / qtdQuestions) * 100);
+    console.log(finalNumber);
     // aqui terminar o quizz e mostrar nível (chamar função?)
     console.log(levels);
     let printLevel;
     
     for (let i = 0; i < levels.length; i++) {
-      if (finalNumber > levels[i].minValue) {
+      if (finalNumber >= levels[i].minValue) {
         printLevel = levels[i];
       }
     }
-    endQuizz(printLevel);
+    endQuizz(printLevel, finalNumber);
   }
 }
 
-function endQuizz(level) {
-  let printLevel = level;
-  console.log(printLevel);
+function endQuizz(printLevel, finalNumber) {
   const titleQuestion = document.querySelector(".container-head");
-  titleQuestion.innerHTML += ` 
+  titleQuestion.innerHTML += `
+  <div class="container-answer container-adjust">
   <ul class="container-title">
-    <h1>${printLevel.title}</h1>
+  <div><h1>${finalNumber}% de acerto: ${printLevel.title}</h1></div>
   </ul>
   <div class="container-body">
     <img src="${printLevel.image}">
     <p>${printLevel.text}</p>
+  </div>
   </div>`;
 }
 
@@ -289,4 +289,5 @@ function creatorBasic() {
 
 function reloadQuizz() {
   setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 1000);
+  loadQuizz(gameID);
 }

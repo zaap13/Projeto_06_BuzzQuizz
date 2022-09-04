@@ -210,7 +210,36 @@ button:hover {
 
 .container-quizz {
   width: 100%;
-  position: relative;
+}
+
+.container-quizz img {
+  width: 100%;
+  height: 227px;
+  filter: brightness(60%);
+  margin-top: 69px;
+  margin-bottom: 42px;
+}
+
+.container-quizz span {
+  height: 227px;
+  font-weight: 400;
+  font-size: 39px;
+  line-height: 45.7px;
+
+  top: 69px;
+  left: 10%;
+  right: 10%;
+
+  position: absolute;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  word-break: break-all;
+
+  text-align: center;
+
+  color: #ffffff;
 }
 
 .container-head {
@@ -219,86 +248,82 @@ button:hover {
   gap: 45px;
 }
 
-.container-quizz img {
-  width: 100%;
-  height: 180px;
-  filter: brightness(60%);
-  margin-top: 69px;
-}
-
-.container-quizz span {
-  font-weight: 400;
-  font-size: 39px;
-  line-height: 45.7px;
-
-  top: 140px;
-  left: 10%;
-  right: 10%;
-
-  text-align: center;
-  position: absolute;
-  color: #ffffff;
-}
-
 .container-question {
   width: 759px;
+  height: 676px;
+}
+
+.container-answer {
+  width: 759px;
+  height: 430px;
+}
+
+.container-adjust{
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: #ffffff;
+  background: #FFFFFF;
 }
 
 .container-title{
+  margin-top: 18px;
   width: 727px;
   height: 99px;
-  position: relative;
+
   background: #EC362D;
 }
 
 .container-title h1{
+  height: 99px;
   font-weight: 700;
   font-size: 23px;
   line-height: 26.95px;
 
-  top: 40px;
-  left: 10%;
-  right: 10%;
+  margin: 0 14px;
 
-  text-align: center;
-  position: absolute;
+  text-align:center;
+  word-break: break-all;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   color: #FFFFFF;
 }
 
 .container-body {
+  margin-top: 20px;
   width: 727px;
-  height: 313px;
-
   display: flex;
-  justify-content: space-between;
+  justify-content:flex-start;
 }
 
 .container-body img {
   width: 364px;
   height: 273px;
-  margin-right: 20px;
+  margin-right: 21px;
 }
 
 .container-body p {
+  width: 342px;
+
   font-weight: 700;
   font-size: 19px;
   line-height: 25px;
+
+  text-align:initial;
+  word-break: break-all;
+
   color: #484848;
 }
 
 .question-title {
   width: 688px;
   height: 138px;
-  margin-top: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
 
-  margin-top: 28px;
   background: #434ca0;
 }
 
@@ -307,6 +332,8 @@ button:hover {
   font-size: 23px;
   line-height: 26.95px;
   text-align: center;
+  
+  word-break: break-all;
 
   color: #ffffff;
 }
@@ -314,6 +341,7 @@ button:hover {
 .style-answer {
   width: 688px;
   height: 500px;
+  background-color: #FFFFFF;
   flex-wrap: wrap;
 
   display: flex;
@@ -350,18 +378,6 @@ button:hover {
 
   border-radius: 15px;
   margin-bottom: 18px;
-}
-
-.green {
-  color: #009c22;
-}
-
-.red {
-  color: #ff4b4b;
-}
-
-.opacity {
-  opacity: 30%;
 }
 /*termino_pagina_2*/
 
@@ -512,4 +528,101 @@ button:hover {
 .hidden {
   /*deixar sempre abaixo*/
   display: none;
+}
+
+@media (max-width: 1100px){
+  /*inicio_pagina_2*/
+  .container-quizz img {
+    height: 142px;
+  }
+  
+  .container-quizz span {
+    height: 142px;
+  }
+
+  .container-question {
+    width: 375px;
+    height: 436px;
+  }
+
+  .question-title {
+    width: 340px;
+    height: 89px;
+  }
+
+  .question-title h1 {
+    font-weight: 700;
+    font-size: 19px;
+    line-height: 22.27px;
+  }
+  
+  .style-answer {
+    width: 375px;
+    height: 436px;
+  }
+
+  .answer {
+    width: 163px;
+  }
+  
+  .answer img {
+    width: 163px;
+    height: 113px;
+  }
+  
+  .answer h2 {
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 15.23px;
+  }
+
+  .container-answer {
+    width: 375px;
+    height: 500px;
+  }
+
+  .container-title{
+    width: 340px;
+  }
+  
+  .container-title h1{
+    height: 99px;
+    font-weight: 700;
+    font-size: 19px;
+    line-height: 22.27px;
+  }
+
+  .container-body {
+    width: 340px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .container-body img {
+    width: 340px;
+    height: 255px;
+  }
+  
+  .container-body p {
+    margin-top: 10px;
+    width: 340px;
+  
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 19.92px;
+  }
+
+  .restart {
+    width: 221px;
+    height: 44px;
+  }
+
+  .back-button {
+    width: 220px;
+    height: 44px;
+    color: #818181;
+    font-weight: 400;
+    font-size: 18px;
+  }
+  /*fim_pagina_2*/
 }
