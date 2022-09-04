@@ -408,6 +408,13 @@ button:hover {
 .list-question-creator {
   width: 100%;
 }
+.list-level-creator{
+  width: 100%;
+}
+.info-question-creator{
+  width: 100%;
+  padding: 0 0 0 50px ;
+}
 .inputs {
   display: flex;
   flex-direction: column;
