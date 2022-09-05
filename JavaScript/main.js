@@ -458,10 +458,6 @@ function creatorQuestion(){
     compareUrlAnswer = !listUrlAnswer.includes(false)
   }
   
-  console.log(compareTittleLevel, 'LEVEL')
-  console.log(comparePercentLevel, 'PORCENTAGEM')
-  console.log(compareUrlLevles, 'URL')
-  console.log(compareDescription, 'descriçao')
 
   if(compareCorrectAnswer && compareWrongAnswer && compareTittle && compareUrlAnswer){
     storeQuestions();
