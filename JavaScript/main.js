@@ -667,22 +667,14 @@ function creatorLevel() {
     `);
   }
 }
+>>>>>>> 4327be5a237b900af5e8d212f514c1d5c3309f82
 
-/* Para Deletar:
-let headers = {
-  headers: {
-    "Secret-Key": "KEY CONTIDA NO POST",
-  },
-}; 
-
-
-axios.delete(urlQuizzes/QUIZZ, headers)
-
-
-
-
-
-*/
+function reloadPage(){
+  const valueConfirm = confirm('Tem certeza que deseja voltar para a tela principal? Voce vai perder todo o seu progresso salvo!!!')
+  if(valueConfirm){
+    window.location.reload()
+  }
+}
 
 function reloadMenu() {
   window.scrollTo({ top: 0, behavior: "auto" });
