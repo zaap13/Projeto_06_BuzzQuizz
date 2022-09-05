@@ -457,11 +457,7 @@ function creatorQuestion(){
   }else{
     compareUrlAnswer = !listUrlAnswer.includes(false)
   }
-  }
-  console.log(compareTittleLevel, 'LEVEL')
-  console.log(comparePercentLevel, 'PORCENTAGEM')
-  console.log(compareUrlLevles, 'URL')
-  console.log(compareDescription, 'descriçao')
+  
 
   if(compareCorrectAnswer && compareWrongAnswer && compareTittle && compareUrlAnswer){
     storeQuestions();
@@ -470,6 +466,151 @@ function creatorQuestion(){
   }else{
     alert('Por favor, preeencha todos os dados corretamentes!')
   }
+}
+
+function sentSuccess(success){
+  console.log(success.data)
+
+  const divLevel = document.querySelector('.level')
+  const divCheck = document.querySelector('.quizz-check')
+
+  const imgCheck = divCheck.children[1].children[0]
+  imgCheck.src = PostToSend.image
+  const spanCheck = divCheck.children[1].children[1]
+  spanCheck.innerHTML = PostToSend.title
+  
+  divLevel.classList.add('hidden')
+  divCheck.classList.remove('hidden')
+}
+function sentError(error){
+  console.log(error)
+}
+
+function sendPost(){
+  const requisition = axios.post(urlQuizzes, PostToSend)
+  requisition.then(sentSuccess)
+  requisition.catch(sentError)
+}
+function storeLevels(){
+  let levels = [];
+  for(let i = 0; i<QtdLevelsCreator;i++){
+    let levelInputs = document.querySelectorAll(`.N${i+1}`)
+    let tittleLevel = levelInputs[0].value;
+    let percentLevel = Number(Number(levelInputs[1].value.replace(',','.')).toFixed(2));
+    let urlLevel = levelInputs[2].value;
+    let descriptionLevel = levelInputs[3].value;
+    
+    let objL = {
+      title: tittleLevel,
+      image: urlLevel,
+      text: descriptionLevel,
+      minValue: percentLevel
+    } 
+    levels.push(objL)
+  }
+  PostToSend.levels = levels
+  console.log(PostToSend)
+  sendPost()
+}
+function creatorLevel(){
+  let tittleInputLevels = document.querySelectorAll(`.tittle-level-creator`);
+  let compareTittleLevel;
+  for(let i = 0; i<tittleInputLevels.length; i++){
+    let text = tittleInputLevels[i].value
+    if(text.length < 10){
+      compareTittleLevel = false;
+      break
+    }else{
+      compareTittleLevel = true;
+    }
+  }
+
+  let percentInputLevels = document.querySelectorAll('.percent-level-creator');
+  let comparePercentLevel;
+  let highPercent = 0;
+  let listNumbersPercent =[];
+  for(let i = 0; i<percentInputLevels.length;i++){
+    if(percentInputLevels[i].value === ''){
+      comparePercentLevel = false
+      break
+    }
+    let percentText = percentInputLevels[i].value
+    if(percentText.includes(',')){
+      percentText = percentText.replace(',','.')
+    }
+    if(percentText.length > 5){
+      comparePercentLevel = false
+      break
+    }
+    let percent = Number(percentText);
+    console.log(percent);
+    if(i === 0 && percent !== 0){
+      comparePercentLevel = false;
+      break;
+    }else if(percent>100 || percent<0){
+      comparePercentLevel = false;
+      break;
+    }else if(highPercent>percent){
+      comparePercentLevel = false;
+      break;
+    }else if(listNumbersPercent.includes(percent)){
+      comparePercentLevel = false;
+      break;
+    }else if(isNaN(percent)){  
+      comparePercentLevel =false
+      break
+    }else{
+      comparePercentLevel = true;
+      highPercent = percent;
+      listNumbersPercent.push(percent);
+    }
+  }
+
+  let listUrlLevels = document.querySelectorAll('.URL-level-creator');
+  let compareUrlLevles;
+  for(let i = 0; i < listUrlLevels.length; i++){
+    let url = listUrlLevels[i].value
+    console.log(url)
+    if(!isImage(url)){
+      compareUrlLevles = false
+      break
+    }else{
+      compareUrlLevles = true
+    }
+  }
+
+  let descriptionInputLevel = document.querySelectorAll('.description-level-creator');
+  let compareDescription;
+  for(let i = 0; i<descriptionInputLevel.length; i++){
+    let text = descriptionInputLevel[i].value
+    console.log(text)
+    if(text.length<30){
+      compareDescription = false
+      break
+    }else{
+      compareDescription =true
+
+    }
+  }
+  console.log(compareTittleLevel, 'LEVEL')
+  console.log(comparePercentLevel, 'PORCENTAGEM')
+  console.log(compareUrlLevles, 'URL')
+  console.log(compareDescription, 'descriçao')
+
+  if(compareTittleLevel && comparePercentLevel && compareUrlLevles && compareDescription){
+    alert('Deu tudo certo')
+    storeLevels()
+  }else{
+    alert(`
+    Por favor preencha os dados corretamentes
+    titulos: minimo de 10 caracteres
+    porcentagem: de 0 a 100 inseridas na ordem crescente e tem que ser um numero, obrigatorio conter uma com valor ZERO, maximo de duas casas decimais
+    URL:ser uma imagem valida
+    Descriçao: minimo de 30 caracteres
+
+    `)
+  }
+}
 
 function reloadMenu() {
   window.scrollTo({ top: 0, behavior: "auto" });
