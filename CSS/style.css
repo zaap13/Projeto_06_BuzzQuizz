@@ -2,6 +2,7 @@
 
 * {
   box-sizing: border-box;
+  word-break: break-word;
 }
 
 body {
@@ -248,7 +249,6 @@ button:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  word-break: break-word;
 
   text-align: center;
 
@@ -294,7 +294,6 @@ button:hover {
   margin: 0 14px;
 
   text-align: center;
-  word-break: break-word;
 
   display: flex;
   align-items: center;
@@ -325,7 +324,6 @@ button:hover {
   line-height: 25px;
 
   text-align: initial;
-  word-break: break-word;
 
   color: #484848;
 }
@@ -344,8 +342,6 @@ button:hover {
   line-height: 26.95px;
   text-shadow: 0 0 1px black;
   text-align: center;
-
-  word-break: break-word;
 
   color: #ffffff;
 }
@@ -375,7 +371,7 @@ button:hover {
 
 .answer h2 {
   height: auto;
-  word-break: break-word;
+
   font-weight: 700;
   font-size: 20px;
   line-height: 23.44px;
@@ -680,9 +676,7 @@ button:hover {
     font-size: 18px;
   }
   /*fim_pagina_2*/
-}
 
-@media (max-width: 600px) {
   /*inicio_pagina_3*/
   .quizz-creator h1 {
     margin: 65px 0 34px 0;
@@ -695,7 +689,7 @@ button:hover {
   .creator-question,
   .level,
   .quizz-check {
-    width: 100%;
+    max-width: 600px;
   }
 
   .quizz-creator-button {
@@ -714,4 +708,13 @@ button:hover {
   }
 
   /*fim_da_pagina_3*/
+}
+
+@media (max-width: 600px) {
+  .start,
+  .creator-question,
+  .level,
+  .quizz-check {
+    width: 100%;
+  }
 }

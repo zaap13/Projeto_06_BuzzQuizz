@@ -12,7 +12,6 @@ let loadNew;
 window.onload = () => {
   getQuizzes();
 
-  //console.log(local);
   if (localStorage.length !== 0) {
     loadUserQuizzes();
   }
@@ -31,9 +30,7 @@ function loadUserQuizzes() {
   userList.innerHTML = "";
   for (let index = 0; index < localStorage.length; index++) {
     const localKey = localStorage.key(index);
-    console.log(localKey);
     local = JSON.parse(localStorage.getItem(localKey));
-    console.log(local.key);
 
     userList.innerHTML += `
     <li class="quizz-box">
@@ -42,8 +39,6 @@ function loadUserQuizzes() {
       <ion-icon class="delete" onclick="deleteQuizz(${local.id})" name="trash-outline"></ion-icon>
     </li>`;
   }
-
-  //
 }
 
 function deleteQuizz(key) {
@@ -56,7 +51,6 @@ function deleteQuizz(key) {
       "Secret-Key": `${quizzToDelete.key}`,
     },
   };
-  console.log(headers);
 
   axios.delete(`${urlQuizzes}/${key}`, headers).then(() => {
     localStorage.removeItem(key);
@@ -122,7 +116,6 @@ function loadQuizz(key) {
     quizz = result.data;
     questions = quizz.questions;
     levels = quizz.levels;
-    console.log(levels);
 
     let qtdQuestions = questions.length;
 
@@ -132,14 +125,10 @@ function loadQuizz(key) {
     titleQuestion.innerHTML = "";
 
     for (let i = 0; i < questions.length; i++) {
-      /*let headerQuestion = [];*/
-      /*  console.log(questions[i]);*/
       answers = "";
       answers = questions[i].answers;
-      console.log(questions[i].answers);
 
       answers.sort(shuffle);
-      /*  console.log(questions[i].title);*/
       color = questions[i].color;
 
       title = questions[i].title;
@@ -152,16 +141,11 @@ function loadQuizz(key) {
         </ul>
       </ul>`;
 
-      /*titleQuestion.innerHTML = headerQuestion;*/
-
       for (let j = 0; j < answers.length; j++) {
         const spaceAnswer = document.querySelector(`.container-answer${i}`);
-        /*  console.log(answers[j].isCorrectAnswer);*/
 
         image = answers[j].image;
         text = answers[j].text;
-
-        console.log(answers[j].isCorrectAnswer);
 
         if (answers[j].isCorrectAnswer === true) {
           spaceAnswer.innerHTML += `
@@ -182,18 +166,14 @@ function loadQuizz(key) {
 }
 
 function clickAnswer(ans, qtd) {
-  console.log(ans);
   let unclicked = ans.parentNode.parentNode;
-  console.log(unclicked);
   unclicked.classList.remove("unclicked");
   let qtdQuestions = qtd;
   countClicked++;
-  //console.log(countClicked);
   let answer = document.querySelectorAll(`.${ans.classList[0]}`);
 
   if (ans.classList[2] === "correct") {
     countCorrect++;
-    //console.log(countCorrect);
   }
 
   answer.forEach((ansid) => {
@@ -207,8 +187,7 @@ function clickAnswer(ans, qtd) {
 
   if (countClicked === qtdQuestions) {
     finalNumber = Math.round((countCorrect / qtdQuestions) * 100);
-    console.log(finalNumber);
-    console.log(levels);
+
     let printLevel;
 
     for (let i = 0; i < levels.length; i++) {
@@ -255,10 +234,8 @@ function hiddeQuestionInputs(imagem) {
 let PostToSend = { title: "", image: "", questions: [], levels: [] };
 
 function printCreatorQuestions() {
-  //Funcao que printa as caixas de perguntas dependendo da resposta do usuario na tela 3.1
   const listCreationQuestion = document.querySelector(".list-question-creator");
   listCreationQuestion.innerHTML = "";
-  console.log("ja ta em outra funçao", QtdQuestionCreator);
   for (let i = 0; i < QtdQuestionCreator; i++) {
     listCreationQuestion.innerHTML += `
     <li class="inputs">
@@ -304,7 +281,6 @@ function printCreatorQuestions() {
 }
 
 function printCreatorLevel() {
-  //Funcao que printa as caixas de levels dependendo da resposta do usuario na tela 3.1
   const listCreationLevel = document.querySelector(".list-level-creator");
   listCreationLevel.innerHTML = "";
 
@@ -345,30 +321,20 @@ function creatorBasic() {
   let listInputsBasic = document.querySelectorAll(".quizz-basic");
 
   let titleQuizz = listInputsBasic[0].value;
-  console.log("Titulo", titleQuizz);
 
-  let UrlImg = listInputsBasic[1].value; // nao esta pronto
+  let UrlImg = listInputsBasic[1].value;
 
   QtdQuestionCreator = parseInt(listInputsBasic[2].value);
-  console.log("N PERGUNTAS", QtdQuestionCreator);
 
   QtdLevelsCreator = parseInt(listInputsBasic[3].value);
-  console.log("N LEVELS", QtdLevelsCreator);
 
-  let titleQuizzCharacters = 20 < titleQuizz.length && titleQuizz.length < 65; //consertar macaquice
+  let titleQuizzCharacters = 20 < titleQuizz.length && titleQuizz.length < 65;
 
   let checkImg = isImage(UrlImg);
-  console.log("AQUI", UrlImg);
-  console.log("AQUI", checkImg);
 
   let nCorrectQuestion = QtdQuestionCreator >= 3;
 
   let nCorrectLevels = QtdLevelsCreator >= 2;
-
-  console.log("titulo certo", titleQuizzCharacters);
-  console.log("imagem é url? ", checkImg);
-  console.log("perguntas certas", nCorrectQuestion);
-  console.log("levels certos", nCorrectLevels);
 
   if (titleQuizzCharacters && nCorrectQuestion && nCorrectLevels && checkImg) {
     printCreatorQuestions();
@@ -391,14 +357,12 @@ function storeQuestions() {
   for (let i = 0; i < QtdQuestionCreator; i++) {
     let listInputQuestions = document.querySelectorAll(`.P${i + 1}`);
     let objQuestion = { title: "", color: "", answers: [] };
-    console.log(listInputQuestions);
     let listAnswers = [];
     for (let j = 0; j < listInputQuestions.length; j++) {
       let text = listInputQuestions[j].value;
       let strEmpty = text !== "";
       if (strEmpty && j === 0) {
         let backcolor = listInputQuestions[j + 1].value;
-        console.log(text, backcolor);
         objQuestion = {
           title: text,
           color: backcolor,
@@ -406,12 +370,10 @@ function storeQuestions() {
         };
       } else if (text && j === 2) {
         let answerUrl = listInputQuestions[j + 1].value;
-        console.log(text, answerUrl);
         let obj = { text: text, image: answerUrl, isCorrectAnswer: true };
         listAnswers.push(obj);
       } else if (strEmpty && 3 < j < 9 && j % 2 === 0) {
         let answerUrl = listInputQuestions[j + 1].value;
-        console.log(text, answerUrl);
         let obj = { text: text, image: answerUrl, isCorrectAnswer: false };
         listAnswers.push(obj);
       }
@@ -422,9 +384,7 @@ function storeQuestions() {
       answers: listAnswers,
     };
     listQuestions.push(objQuestion);
-    console.log(objQuestion);
   }
-  console.log(listQuestions);
   PostToSend.questions = listQuestions;
 }
 
@@ -433,7 +393,6 @@ function creatorQuestion() {
   let compareTittle;
   const titleList = [];
   for (let i = 0; i < AllTittles.length; i++) {
-    //For que checa se os titulos tem mais de 20 caracteres
     let text = AllTittles[i].value;
     if (text.length < 20) {
       compareTittle = false;
@@ -447,7 +406,6 @@ function creatorQuestion() {
   const AllCorrectAnswer = document.querySelectorAll(".tittle-correct-answer");
   let compareCorrectAnswer;
   for (let i = 0; i < AllCorrectAnswer.length; i++) {
-    //For que checa as perguntas certas
     let text = AllCorrectAnswer[i].value;
     if (text === "") {
       compareCorrectAnswer = false;
@@ -457,7 +415,6 @@ function creatorQuestion() {
     }
   }
 
-  //const AllWrongAnswer = document.querySelectorAll('.tittle-wrong-answer');
   let compareWrongAnswer;
   for (let i = 0; i < QtdQuestionCreator; i++) {
     let listIncorrect = document.querySelectorAll(`.incorrect .P${i + 1}`);
@@ -468,14 +425,12 @@ function creatorQuestion() {
       compareWrongAnswer = true;
     }
     if (listIncorrect[4].value !== "" && listIncorrect[2].value === "") {
-      //condiçao para se preencher a resposta incorreta 3 nao deixar a 2 em branco
       compareWrongAnswer = false;
       break;
     }
   }
 
   let listUrlAnswer = [];
-  //For que checa as URL
   for (i = 0; i < QtdQuestionCreator; i++) {
     let listInputs = document.querySelectorAll(`.P${i + 1}`);
 
@@ -489,10 +444,7 @@ function creatorQuestion() {
       }
     }
   }
-  console.log(compareCorrectAnswer);
-  console.log(compareWrongAnswer);
-  console.log(compareTittle);
-  console.log(listUrlAnswer);
+
   let compareUrlAnswer;
   if (listUrlAnswer.length === 0) {
     compareUrlAnswer = false;
@@ -532,9 +484,7 @@ function sentSuccess(success) {
 
   loadNew = newQuizz.id;
 }
-function sentError(error) {
-  console.log(error);
-}
+function sentError(error) {}
 
 function sendPost() {
   const requisition = axios.post(urlQuizzes, PostToSend);
@@ -594,7 +544,6 @@ function creatorLevel() {
       break;
     }
     let percent = Number(percentText);
-    console.log(percent);
     if (i === 0 && percent !== 0) {
       comparePercentLevel = false;
       break;
@@ -621,7 +570,6 @@ function creatorLevel() {
   let compareUrlLevles;
   for (let i = 0; i < listUrlLevels.length; i++) {
     let url = listUrlLevels[i].value;
-    console.log(url);
     if (!isImage(url)) {
       compareUrlLevles = false;
       break;
@@ -636,7 +584,6 @@ function creatorLevel() {
   let compareDescription;
   for (let i = 0; i < descriptionInputLevel.length; i++) {
     let text = descriptionInputLevel[i].value;
-    console.log(text);
     if (text.length < 30) {
       compareDescription = false;
       break;
@@ -644,10 +591,6 @@ function creatorLevel() {
       compareDescription = true;
     }
   }
-  console.log(compareTittleLevel, "LEVEL");
-  console.log(comparePercentLevel, "PORCENTAGEM");
-  console.log(compareUrlLevles, "URL");
-  console.log(compareDescription, "descriçao");
 
   if (
     compareTittleLevel &&
