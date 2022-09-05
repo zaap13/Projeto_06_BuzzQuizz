@@ -442,6 +442,29 @@ function creatorQuestion(){
   }
 }
 
+function sentSuccess(success){
+  console.log(success.data)
+
+  const divLevel = document.querySelector('.level')
+  const divCheck = document.querySelector('.quizz-check')
+
+  const imgCheck = divCheck.children[1].children[0]
+  imgCheck.src = PostToSend.image
+  const spanCheck = divCheck.children[1].children[1]
+  spanCheck.innerHTML = PostToSend.title
+  
+  divLevel.classList.add('hidden')
+  divCheck.classList.remove('hidden')
+}
+function sentError(error){
+  console.log(error)
+}
+
+function sendPost(){
+  const requisition = axios.post(urlQuizzes, PostToSend)
+  requisition.then(sentSuccess)
+  requisition.catch(sentError)
+}
 function storeLevels(){
   let levels = [];
   for(let i = 0; i<QtdLevelsCreator;i++){
@@ -461,6 +484,7 @@ function storeLevels(){
   }
   PostToSend.levels = levels
   console.log(PostToSend)
+  sendPost()
 }
 function creatorLevel(){
   let tittleInputLevels = document.querySelectorAll(`.tittle-level-creator`);
