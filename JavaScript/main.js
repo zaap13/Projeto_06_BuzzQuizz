@@ -18,13 +18,11 @@ window.onload = () => {
 };
 
 function loadUserQuizzes() {
-  userQuizz = document.querySelector(".user-quizzes");
-  firstQuizz = document.querySelector(".create-first-quizz");
+  const userQuizz = document.querySelector(".user-quizzes");
+  const firstQuizz = document.querySelector(".create-first-quizz");
 
   userQuizz.classList.remove("hidden");
   firstQuizz.classList.add("hidden");
-
-  const listaSerializada = localStorage.getItem("lista");
 
   const userList = document.querySelector(".user-quizzes-list");
   userList.innerHTML = "";
@@ -46,7 +44,7 @@ function deleteQuizz(key) {
     return;
   }
   const quizzToDelete = JSON.parse(localStorage.getItem(key));
-  let headers = {
+  const headers = {
     headers: {
       "Secret-Key": `${quizzToDelete.key}`,
     },
@@ -62,11 +60,11 @@ function loadQuizzes() {
   const ul = document.querySelector(".all-quizzes-list");
   ul.innerHTML = "";
 
-  quizzes.forEach((quizz) => {
+  quizzes.forEach((quiz) => {
     ul.innerHTML += `
-    <li class="quizz-box" onclick="loadPage(${quizz.id})">
-      <img class="quizz-img" src="${quizz.image}" alt="Imagem do quizz">
-      <p class="quizz-title">${quizz.title}</p>
+    <li class="quizz-box" onclick="loadPage(${quiz.id})">
+      <img class="quizz-img" src="${quiz.image}" alt="Imagem do quizz">
+      <p class="quizz-title">${quiz.title}</p>
     </li>`;
   });
 }
@@ -80,9 +78,9 @@ function getQuizzes() {
 }
 
 function loadPage(page) {
-  quizzList = document.querySelector(".quizz-list");
-  quizzPage = document.querySelector(".quizz-page");
-  quizzCreator = document.querySelector(".quizz-creator");
+  const quizzList = document.querySelector(".quizz-list");
+  const quizzPage = document.querySelector(".quizz-page");
+  const quizzCreator = document.querySelector(".quizz-creator");
 
   if (page === "quizz-list") {
     reloadMenu();
@@ -105,8 +103,8 @@ function loadPage(page) {
 
 function loadQuizz(key) {
   gameID = key;
-  countCorrect = 0;
-  countClicked = 0;
+  let countCorrect = 0;
+  let countClicked = 0;
   const quizzTitle = document.querySelector(".container-quizz span");
   const quizzImage = document.querySelector(".container-quizz img");
   const titleQuestion = document.querySelector(".container-head");
@@ -117,7 +115,7 @@ function loadQuizz(key) {
     questions = quizz.questions;
     levels = quizz.levels;
 
-    let qtdQuestions = questions.length;
+    const qtdQuestions = questions.length;
 
     quizzTitle.innerHTML = quizz.title;
     quizzImage.src = quizz.image;
@@ -129,9 +127,9 @@ function loadQuizz(key) {
       answers = questions[i].answers;
 
       answers.sort(shuffle);
-      color = questions[i].color;
+      let color = questions[i].color;
 
-      title = questions[i].title;
+      let title = questions[i].title;
       titleQuestion.innerHTML += `
       <ul class="container-question container-adjust unclicked">
           <div class="question-title" style="background-color: ${color}">
@@ -144,8 +142,8 @@ function loadQuizz(key) {
       for (let j = 0; j < answers.length; j++) {
         const spaceAnswer = document.querySelector(`.container-answer${i}`);
 
-        image = answers[j].image;
-        text = answers[j].text;
+        let image = answers[j].image;
+        let text = answers[j].text;
 
         if (answers[j].isCorrectAnswer === true) {
           spaceAnswer.innerHTML += `
@@ -226,12 +224,12 @@ function shuffle() {
 
 function hiddeQuestionInputs(imagem) {
   const pai = imagem.parentNode;
-  const avô = pai.parentNode;
-  const SegundoNeto = avô.children[1];
+  const vo = pai.parentNode;
+  const SegundoNeto = vo.children[1];
   SegundoNeto.classList.toggle("hidden");
 }
 
-let PostToSend = { title: "", image: "", questions: [], levels: [] };
+const PostToSend = { title: "", image: "", questions: [], levels: [] };
 
 function printCreatorQuestions() {
   const listCreationQuestion = document.querySelector(".list-question-creator");
@@ -467,8 +465,8 @@ function creatorQuestion() {
 }
 
 function sentSuccess(success) {
-  newQuizz = success.data;
-  stringQuizz = JSON.stringify(newQuizz);
+  let newQuizz = success.data;
+  let stringQuizz = JSON.stringify(newQuizz);
   localStorage.setItem(newQuizz.id, stringQuizz);
 
   const divLevel = document.querySelector(".level");
@@ -484,7 +482,9 @@ function sentSuccess(success) {
 
   loadNew = newQuizz.id;
 }
-function sentError(error) {}
+function sentError() {
+  alert("Algo deu errado!!!");
+}
 
 function sendPost() {
   const requisition = axios.post(urlQuizzes, PostToSend);

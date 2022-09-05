@@ -450,6 +450,7 @@ button:hover {
   align-items: center;
   width: 100%;
   background: #ffffff;
+  margin: 0 0 30px 0;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
 }
 .question-creator-box {
@@ -481,9 +482,7 @@ button:hover {
   font-weight: 700;
   color: #000000;
 }
-.inputs {
-  margin: 0 0 30px 0;
-}
+
 .incorrect {
   display: flex;
   flex-direction: column;
