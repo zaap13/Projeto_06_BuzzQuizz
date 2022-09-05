@@ -182,7 +182,7 @@ function clickAnswer(ans, qtd) {
   }
 
   unclicked = document.querySelector(".unclicked");
-  setTimeout(() => unclicked.scrollIntoView({behavior: "smooth"}), 400);
+  setTimeout(() => unclicked.scrollIntoView({behavior: "smooth", block: "center"}), 2000);
 }
 
 function endQuizz(printLevel, finalNumber) {
