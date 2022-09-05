@@ -331,6 +331,7 @@ button:hover {
   font-weight: 700;
   font-size: 23px;
   line-height: 26.95px;
+  text-shadow: 0 0 1px black;
   text-align: center;
 
   word-break: break-word;
