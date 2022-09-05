@@ -184,6 +184,18 @@ button:hover {
   color: #ffffff;
 }
 
+.delete {
+  position: absolute;
+  right: 0;
+  top: 10%;
+  width: 43px;
+  height: 47px;
+  color: #ffffff;
+  background: #ec362d;
+  border-radius: 10px 0px 0px 11px;
+  z-index: 9;
+}
+
 .quizz-box {
   position: relative;
   width: 340px;
@@ -250,9 +262,8 @@ button:hover {
 }
 
 .container-question {
-  width: 759px; 
+  width: 759px;
   display: flex;
-
 }
 
 .container-answer {
@@ -557,7 +568,20 @@ button:hover {
   .all-quizzes-list {
     width: 100%;
     justify-content: center;
+  }
 
+  .user-quizzes {
+    width: min-content;
+  }
+
+  .user-quizzes-title-box {
+    justify-content: space-between;
+  }
+
+  .user-quizzes-list {
+    width: min-content;
+    flex-direction: column;
+    justify-content: center;
   }
 
   /*termino_pagina_1*/
@@ -594,7 +618,6 @@ button:hover {
 
   .answer {
     width: 163px;
-
   }
 
   .answer img {

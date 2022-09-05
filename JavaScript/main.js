@@ -6,12 +6,14 @@ let questions;
 let answers;
 let count = 0;
 let gameID;
+let local;
+let loadNew;
 
 window.onload = () => {
   getQuizzes();
 
-  let local = localStorage;
-  if (local.length !== 0) {
+  //console.log(local);
+  if (localStorage.length !== 0) {
     loadUserQuizzes();
   }
 };
@@ -23,7 +25,42 @@ function loadUserQuizzes() {
   userQuizz.classList.remove("hidden");
   firstQuizz.classList.add("hidden");
 
-  // Preencher UL com dados de localStorage
+  const listaSerializada = localStorage.getItem("lista");
+
+  const userList = document.querySelector(".user-quizzes-list");
+  userList.innerHTML = "";
+  for (let index = 0; index < localStorage.length; index++) {
+    const localKey = localStorage.key(index);
+    console.log(localKey);
+    local = JSON.parse(localStorage.getItem(localKey));
+    console.log(local.key);
+
+    userList.innerHTML += `
+    <li class="quizz-box">
+      <img class="quizz-img" onclick="loadPage(${local.id})" src="${local.image}" alt="Imagem do quizz">
+      <p class="quizz-title">${local.title}</p>
+      <ion-icon class="delete" onclick="deleteQuizz(${local.id})" name="trash-outline"></ion-icon>
+    </li>`;
+  }
+
+  //
+}
+
+function deleteQuizz(key) {
+  if (confirm("Deseja realmente deletar este quizz?") == false) {
+    return;
+  }
+  const quizzToDelete = JSON.parse(localStorage.getItem(key));
+  let headers = {
+    headers: {
+      "Secret-Key": quizzToDelete.key,
+    },
+  };
+  console.log(headers);
+
+  axios.delete(`${urlQuizzes}/${key}`, headers);
+  localStorage.removeItem(key);
+  window.location.reload();
 }
 
 function loadQuizzes() {
@@ -145,7 +182,8 @@ function loadQuizz(key) {
 
 function clickAnswer(ans, qtd) {
   console.log(ans);
-  let unclicked = document.querySelector(".unclicked");
+  let unclicked = ans.parentNode.parentNode;
+  console.log(unclicked);
   unclicked.classList.remove("unclicked");
   let qtdQuestions = qtd;
   countClicked++;
@@ -182,7 +220,10 @@ function clickAnswer(ans, qtd) {
   }
 
   unclicked = document.querySelector(".unclicked");
-  setTimeout(() => unclicked.scrollIntoView({behavior: "smooth", block: "center"}), 2000);
+  setTimeout(
+    () => unclicked.scrollIntoView({ behavior: "smooth", block: "center" }),
+    500
+  );
 }
 
 function endQuizz(printLevel, finalNumber) {
@@ -452,155 +493,170 @@ function creatorQuestion() {
   console.log(compareTittle);
   console.log(listUrlAnswer);
   let compareUrlAnswer;
-  if(listUrlAnswer.length === 0){
-    compareUrlAnswer = false
-  }else{
-    compareUrlAnswer = !listUrlAnswer.includes(false)
+  if (listUrlAnswer.length === 0) {
+    compareUrlAnswer = false;
+  } else {
+    compareUrlAnswer = !listUrlAnswer.includes(false);
   }
-  
 
-  if(compareCorrectAnswer && compareWrongAnswer && compareTittle && compareUrlAnswer){
+  if (
+    compareCorrectAnswer &&
+    compareWrongAnswer &&
+    compareTittle &&
+    compareUrlAnswer
+  ) {
     storeQuestions();
-    document.querySelector('.creator-question').classList.add('hidden')
-    document.querySelector('.level').classList.remove('hidden')
-  }else{
-    alert('Por favor, preeencha todos os dados corretamentes!')
+    document.querySelector(".creator-question").classList.add("hidden");
+    document.querySelector(".level").classList.remove("hidden");
+  } else {
+    alert("Por favor, preeencha todos os dados corretamentes!");
   }
 }
 
-function sentSuccess(success){
-  console.log(success.data)
+function sentSuccess(success) {
+  newQuizz = success.data;
+  stringQuizz = JSON.stringify(newQuizz);
+  localStorage.setItem(newQuizz.id, stringQuizz);
 
-  const divLevel = document.querySelector('.level')
-  const divCheck = document.querySelector('.quizz-check')
+  const divLevel = document.querySelector(".level");
+  const divCheck = document.querySelector(".quizz-check");
 
-  const imgCheck = divCheck.children[1].children[0]
-  imgCheck.src = PostToSend.image
-  const spanCheck = divCheck.children[1].children[1]
-  spanCheck.innerHTML = PostToSend.title
-  
-  divLevel.classList.add('hidden')
-  divCheck.classList.remove('hidden')
+  const imgCheck = divCheck.children[1].children[0];
+  imgCheck.src = PostToSend.image;
+  const spanCheck = divCheck.children[1].children[1];
+  spanCheck.innerHTML = PostToSend.title;
+
+  divLevel.classList.add("hidden");
+  divCheck.classList.remove("hidden");
+
+  loadNew = newQuizz.id;
 }
-function sentError(error){
-  console.log(error)
+function sentError(error) {
+  console.log(error);
 }
 
-function sendPost(){
-  const requisition = axios.post(urlQuizzes, PostToSend)
-  requisition.then(sentSuccess)
-  requisition.catch(sentError)
+function sendPost() {
+  const requisition = axios.post(urlQuizzes, PostToSend);
+  requisition.then(sentSuccess);
+  requisition.catch(sentError);
 }
-function storeLevels(){
+function storeLevels() {
   let levels = [];
-  for(let i = 0; i<QtdLevelsCreator;i++){
-    let levelInputs = document.querySelectorAll(`.N${i+1}`)
+  for (let i = 0; i < QtdLevelsCreator; i++) {
+    let levelInputs = document.querySelectorAll(`.N${i + 1}`);
     let tittleLevel = levelInputs[0].value;
-    let percentLevel = Number(Number(levelInputs[1].value.replace(',','.')).toFixed(2));
+    let percentLevel = Number(
+      Number(levelInputs[1].value.replace(",", ".")).toFixed(2)
+    );
     let urlLevel = levelInputs[2].value;
     let descriptionLevel = levelInputs[3].value;
-    
+
     let objL = {
       title: tittleLevel,
       image: urlLevel,
       text: descriptionLevel,
-      minValue: percentLevel
-    } 
-    levels.push(objL)
+      minValue: percentLevel,
+    };
+    levels.push(objL);
   }
-  PostToSend.levels = levels
-  console.log(PostToSend)
-  sendPost()
+  PostToSend.levels = levels;
+  sendPost();
 }
-function creatorLevel(){
+function creatorLevel() {
   let tittleInputLevels = document.querySelectorAll(`.tittle-level-creator`);
   let compareTittleLevel;
-  for(let i = 0; i<tittleInputLevels.length; i++){
-    let text = tittleInputLevels[i].value
-    if(text.length < 10){
+  for (let i = 0; i < tittleInputLevels.length; i++) {
+    let text = tittleInputLevels[i].value;
+    if (text.length < 10) {
       compareTittleLevel = false;
-      break
-    }else{
+      break;
+    } else {
       compareTittleLevel = true;
     }
   }
 
-  let percentInputLevels = document.querySelectorAll('.percent-level-creator');
+  let percentInputLevels = document.querySelectorAll(".percent-level-creator");
   let comparePercentLevel;
   let highPercent = 0;
-  let listNumbersPercent =[];
-  for(let i = 0; i<percentInputLevels.length;i++){
-    if(percentInputLevels[i].value === ''){
-      comparePercentLevel = false
-      break
+  let listNumbersPercent = [];
+  for (let i = 0; i < percentInputLevels.length; i++) {
+    if (percentInputLevels[i].value === "") {
+      comparePercentLevel = false;
+      break;
     }
-    let percentText = percentInputLevels[i].value
-    if(percentText.includes(',')){
-      percentText = percentText.replace(',','.')
+    let percentText = percentInputLevels[i].value;
+    if (percentText.includes(",")) {
+      percentText = percentText.replace(",", ".");
     }
-    if(percentText.length > 5){
-      comparePercentLevel = false
-      break
+    if (percentText.length > 5) {
+      comparePercentLevel = false;
+      break;
     }
     let percent = Number(percentText);
     console.log(percent);
-    if(i === 0 && percent !== 0){
+    if (i === 0 && percent !== 0) {
       comparePercentLevel = false;
       break;
-    }else if(percent>100 || percent<0){
+    } else if (percent > 100 || percent < 0) {
       comparePercentLevel = false;
       break;
-    }else if(highPercent>percent){
+    } else if (highPercent > percent) {
       comparePercentLevel = false;
       break;
-    }else if(listNumbersPercent.includes(percent)){
+    } else if (listNumbersPercent.includes(percent)) {
       comparePercentLevel = false;
       break;
-    }else if(isNaN(percent)){  
-      comparePercentLevel =false
-      break
-    }else{
+    } else if (isNaN(percent)) {
+      comparePercentLevel = false;
+      break;
+    } else {
       comparePercentLevel = true;
       highPercent = percent;
       listNumbersPercent.push(percent);
     }
   }
 
-  let listUrlLevels = document.querySelectorAll('.URL-level-creator');
+  let listUrlLevels = document.querySelectorAll(".URL-level-creator");
   let compareUrlLevles;
-  for(let i = 0; i < listUrlLevels.length; i++){
-    let url = listUrlLevels[i].value
-    console.log(url)
-    if(!isImage(url)){
-      compareUrlLevles = false
-      break
-    }else{
-      compareUrlLevles = true
+  for (let i = 0; i < listUrlLevels.length; i++) {
+    let url = listUrlLevels[i].value;
+    console.log(url);
+    if (!isImage(url)) {
+      compareUrlLevles = false;
+      break;
+    } else {
+      compareUrlLevles = true;
     }
   }
 
-  let descriptionInputLevel = document.querySelectorAll('.description-level-creator');
+  let descriptionInputLevel = document.querySelectorAll(
+    ".description-level-creator"
+  );
   let compareDescription;
-  for(let i = 0; i<descriptionInputLevel.length; i++){
-    let text = descriptionInputLevel[i].value
-    console.log(text)
-    if(text.length<30){
-      compareDescription = false
-      break
-    }else{
-      compareDescription =true
-
+  for (let i = 0; i < descriptionInputLevel.length; i++) {
+    let text = descriptionInputLevel[i].value;
+    console.log(text);
+    if (text.length < 30) {
+      compareDescription = false;
+      break;
+    } else {
+      compareDescription = true;
     }
   }
-  console.log(compareTittleLevel, 'LEVEL')
-  console.log(comparePercentLevel, 'PORCENTAGEM')
-  console.log(compareUrlLevles, 'URL')
-  console.log(compareDescription, 'descriçao')
+  console.log(compareTittleLevel, "LEVEL");
+  console.log(comparePercentLevel, "PORCENTAGEM");
+  console.log(compareUrlLevles, "URL");
+  console.log(compareDescription, "descriçao");
 
-  if(compareTittleLevel && comparePercentLevel && compareUrlLevles && compareDescription){
-    alert('Deu tudo certo')
-    storeLevels()
-  }else{
+  if (
+    compareTittleLevel &&
+    comparePercentLevel &&
+    compareUrlLevles &&
+    compareDescription
+  ) {
+    alert("Deu tudo certo");
+    storeLevels();
+  } else {
     alert(`
     Por favor preencha os dados corretamentes
     titulos: minimo de 10 caracteres
@@ -608,9 +664,25 @@ function creatorLevel(){
     URL:ser uma imagem valida
     Descriçao: minimo de 30 caracteres
 
-    `)
+    `);
   }
 }
+
+/* Para Deletar:
+let headers = {
+  headers: {
+    "Secret-Key": "KEY CONTIDA NO POST",
+  },
+}; 
+
+
+axios.delete(urlQuizzes/QUIZZ, headers)
+
+
+
+
+
+*/
 
 function reloadMenu() {
   window.scrollTo({ top: 0, behavior: "auto" });
@@ -621,5 +693,4 @@ function reloadQuizz() {
     window.scrollTo({ top: 0, behavior: "smooth" });
     loadQuizz(gameID);
   }, 2000);
-
 }
