@@ -612,6 +612,13 @@ function creatorLevel(){
   }
 }
 
+function reloadPage(){
+  const valueConfirm = confirm('Tem certeza que deseja voltar para a tela principal? Voce vai perder todo o seu progresso salvo!!!')
+  if(valueConfirm){
+    window.location.reload()
+  }
+}
+
 function reloadMenu() {
   window.scrollTo({ top: 0, behavior: "auto" });
 }
