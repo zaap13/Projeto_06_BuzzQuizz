@@ -380,8 +380,8 @@ function storeQuestions() {
   PostToSend.questions = listQuestions;
 }
 
-function creatorQuestion(){
-  const AllTittles = document.querySelectorAll('.tittle-question-creator');
+function creatorQuestion() {
+  const AllTittles = document.querySelectorAll(".tittle-question-creator");
   let compareTittle;
   const titleList = [];
   for (let i = 0; i < AllTittles.length; i++) {
@@ -446,30 +446,38 @@ function creatorQuestion(){
   console.log(compareTittle);
   console.log(listUrlAnswer);
   let compareUrlAnswer;
-  if(listUrlAnswer.length === 0){
-    compareUrlAnswer = false
-  }else{
-    compareUrlAnswer = !listUrlAnswer.includes(false)
+  if (listUrlAnswer.length === 0) {
+    compareUrlAnswer = false;
+  } else {
+    compareUrlAnswer = !listUrlAnswer.includes(false);
   }
-  }
-  console.log(compareTittleLevel, 'LEVEL')
-  console.log(comparePercentLevel, 'PORCENTAGEM')
-  console.log(compareUrlLevles, 'URL')
-  console.log(compareDescription, 'descriçao')
+}
+console.log(compareTittleLevel, "LEVEL");
+console.log(comparePercentLevel, "PORCENTAGEM");
+console.log(compareUrlLevles, "URL");
+console.log(compareDescription, "descriçao");
 
-  if(compareCorrectAnswer && compareWrongAnswer && compareTittle && compareUrlAnswer){
-    storeQuestions();
-    document.querySelector('.creator-question').classList.add('hidden')
-    document.querySelector('.level').classList.remove('hidden')
-  }else{
-    alert('Por favor, preeencha todos os dados corretamentes!')
-  }
+if (
+  compareCorrectAnswer &&
+  compareWrongAnswer &&
+  compareTittle &&
+  compareUrlAnswer
+) {
+  storeQuestions();
+  document.querySelector(".creator-question").classList.add("hidden");
+  document.querySelector(".level").classList.remove("hidden");
+} else {
+  alert("Por favor, preeencha todos os dados corretamentes!");
+}
 
 function reloadMenu() {
   window.scrollTo({ top: 0, behavior: "auto" });
 }
 
 function reloadQuizz() {
-  setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 2000);
-  loadQuizz(gameID);
+  setTimeout(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    loadQuizz(gameID);
+  }, 2000);
+
 }
