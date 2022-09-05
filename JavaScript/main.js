@@ -182,7 +182,7 @@ function clickAnswer(ans, qtd) {
   }
 
   unclicked = document.querySelector(".unclicked");
-  setTimeout(() => unclicked.scrollIntoView({behavior: "smooth"}), 400);
+  setTimeout(() => unclicked.scrollIntoView({behavior: "smooth", block: "center"}), 2000);
 }
 
 function endQuizz(printLevel, finalNumber) {
@@ -386,8 +386,8 @@ function storeQuestions() {
   PostToSend.questions = listQuestions;
 }
 
-function creatorQuestion(){
-  const AllTittles = document.querySelectorAll('.tittle-question-creator');
+function creatorQuestion() {
+  const AllTittles = document.querySelectorAll(".tittle-question-creator");
   let compareTittle;
   const titleList = [];
   for (let i = 0; i < AllTittles.length; i++) {
@@ -624,6 +624,9 @@ function reloadMenu() {
 }
 
 function reloadQuizz() {
-  setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 2000);
-  loadQuizz(gameID);
+  setTimeout(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    loadQuizz(gameID);
+  }, 2000);
+
 }
