@@ -47,20 +47,21 @@ function loadUserQuizzes() {
 }
 
 function deleteQuizz(key) {
-  if (confirm("Deseja realmente deletar este quizz?") == false) {
+  if (confirm("Deseja realmente deletar este quizz?") === false) {
     return;
   }
   const quizzToDelete = JSON.parse(localStorage.getItem(key));
   let headers = {
     headers: {
-      "Secret-Key": quizzToDelete.key,
+      "Secret-Key": `${quizzToDelete.key}`,
     },
   };
   console.log(headers);
 
-  axios.delete(`${urlQuizzes}/${key}`, headers);
-  localStorage.removeItem(key);
-  window.location.reload();
+  axios.delete(`${urlQuizzes}/${key}`, headers).then(() => {
+    localStorage.removeItem(key);
+    window.location.reload();
+  });
 }
 
 function loadQuizzes() {
@@ -667,12 +668,13 @@ function creatorLevel() {
     `);
   }
 }
->>>>>>> 4327be5a237b900af5e8d212f514c1d5c3309f82
 
-function reloadPage(){
-  const valueConfirm = confirm('Tem certeza que deseja voltar para a tela principal? Voce vai perder todo o seu progresso salvo!!!')
-  if(valueConfirm){
-    window.location.reload()
+function reloadPage() {
+  const valueConfirm = confirm(
+    "Tem certeza que deseja voltar para a tela principal? Voce vai perder todo o seu progresso salvo!!!"
+  );
+  if (valueConfirm) {
+    window.location.reload();
   }
 }
 

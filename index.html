@@ -38,18 +38,6 @@
             ></ion-icon>
           </div>
           <ul class="user-quizzes-list">
-            <!--Test Area-->
-            <li class="quizz-box">
-              <img
-                class="quizz-img"
-                onclick="loadPage(10535)"
-                src="https://img.olhardigital.com.br/wp-content/uploads/2018/09/20180903133856-860x450.jpg"
-                alt="Imagem do quizz"
-              />
-              <p class="quizz-title">Titulo do quizz</p>
-              <ion-icon class="delete" name="trash-outline"></ion-icon>
-            </li>
-            <!--Test Area-->
           </ul>
         </div>
         <div class="all-quizzes">
@@ -70,7 +58,7 @@
         <ul class="container-result"></ul>
 
         <button class="restart" onclick="reloadQuizz()">Reiniciar Quizz</button>
-        <button onclick="loadPage('quizz-list')" class="back-button">
+        <button onclick="reloadPage()" class="back-button">
           Voltar pra home
         </button>
       </div>
@@ -106,7 +94,7 @@
             <button class="quizz-creator-button" onclick="creatorBasic()">
               Proseguir pra criar perguntas
             </button>
-            <button class="back-button" onclick="window.location.reload()">Voltar pra home</button>
+            <button class="back-button" onclick="reloadPage()">Voltar pra home</button>
           </div>
           <div class="creator-question hidden">
             <h1>Crie suas perguntas</h1>
@@ -114,7 +102,7 @@
             <button class="quizz-creator-button" onclick="creatorQuestion()">
               Prosseguir para criar niveis
             </button>
-            <button class="back-button">Voltar pra home</button>
+            <button class="back-button" onclick="reloadPage()">Voltar pra home</button>
           </div>
           <div class="level hidden">
             <h1>Agora, decida os níveis</h1>
@@ -128,7 +116,7 @@
               </li>
             </ul>
             <button class="quizz-creator-button" onclick="creatorLevel()">Finalizar Quizz</button>
-            <button class="back-button" onclick="window.location.reload()">Voltar pra home</button>
+            <button class="back-button" onclick="reloadPage()">Voltar pra home</button>
           </div>
           <div class="quizz-check hidden">
             <h1>Seu quizz está pronto!</h1>
@@ -141,7 +129,7 @@
               >
             </div>
             <button class="quizz-creator-button" onclick="loadPage(loadNew)">Acessar Quizz</button>
-            <button class="back-button" onclick="window.location.reload()">Voltar pra home</button>
+            <button class="back-button" onclick="reloadPage()">Voltar pra home</button>
           </div>
         </div>
       </div>
