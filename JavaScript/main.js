@@ -106,7 +106,7 @@ function loadQuizz(key) {
 
       title = questions[i].title;
       titleQuestion.innerHTML += `
-      <ul class="container-question container-adjust">
+      <ul class="container-question container-adjust unclicked">
           <div class="question-title" style="background-color: ${color}">
             <h1>${title}</h1>
           </div>
@@ -144,6 +144,9 @@ function loadQuizz(key) {
 }
 
 function clickAnswer(ans, qtd) {
+  console.log(ans);
+  let unclicked = document.querySelector(".unclicked");
+  unclicked.classList.remove("unclicked");
   let qtdQuestions = qtd;
   countClicked++;
   //console.log(countClicked);
@@ -178,12 +181,15 @@ function clickAnswer(ans, qtd) {
     }
     endQuizz(printLevel, finalNumber);
   }
+
+  unclicked = document.querySelector(".unclicked");
+  setTimeout(() => unclicked.scrollIntoView({behavior: "smooth"}), 400);
 }
 
 function endQuizz(printLevel, finalNumber) {
   const titleQuestion = document.querySelector(".container-head");
   titleQuestion.innerHTML += `
-  <div class="container-answer container-adjust">
+  <div class="container-answer container-adjust unclicked">
   <ul class="container-title">
   <div><h1>${finalNumber}% de acerto: ${printLevel.title}</h1></div>
   </ul>
@@ -447,6 +453,5 @@ function reloadMenu() {
 }
 
 function reloadQuizz(){  
-  setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 2000);
-  loadQuizz(gameID);
+  setTimeout(() => {loadQuizz(gameID); window.scrollTo({ top: 0, behavior: "smooth" })}, 2000);
 }
