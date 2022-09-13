@@ -8,6 +8,8 @@ let count = 0;
 let gameID;
 let local;
 let loadNew;
+let countCorrect = 0;
+let countClicked = 0;
 
 window.onload = () => {
   getQuizzes();
@@ -103,8 +105,8 @@ function loadPage(page) {
 
 function loadQuizz(key) {
   gameID = key;
-  let countCorrect = 0;
-  let countClicked = 0;
+  countCorrect = 0;
+  countClicked = 0;
   const quizzTitle = document.querySelector(".container-quizz span");
   const quizzImage = document.querySelector(".container-quizz img");
   const titleQuestion = document.querySelector(".container-head");
